@@ -1045,7 +1045,7 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         $module     = $this->getModule()->getLowerModuleName();
         $title      = ucwords($this->getLabelSingular());
         $entity     = strtolower($this->getNameSingular());
-        $action     = $module.'_'.$entity;
+        $action     = ($entity != $module) ? $module.'_'.$entity : $entity;
         $eol        = $this->getEol();
 
         $text  = $this->getPadding($padding).'<'.$entity.' translate="title" module="'.$extension.'">'.$eol;

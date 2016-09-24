@@ -34,7 +34,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_{{Sibling}} e
             $constraint = 'related.{{entity}}_id=0';
         }
         $collection->getSelect()->joinLeft(
-            array('related' => $collection->getTable('{{namespace}}_{{module}}/{{entity}}_{{sibling}}')),
+            array('related' => $collection->getTable('{{namespace}}_{{module}}/{{entityTable}}_{{sibling}}')),
             'related.{{sibling}}_id={{siblingTableAlias}}.entity_id AND '.$constraint,
             array('position')
         );

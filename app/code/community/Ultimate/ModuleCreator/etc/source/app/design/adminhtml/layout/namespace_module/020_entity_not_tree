@@ -1,4 +1,4 @@
-    <adminhtml_{{module}}_{{entity}}_index>
+    <adminhtml_{{module_entity}}_index>
         <reference name="menu">
             <action method="setActive">
                 <menupath>{{selectedMenuPath}}</menupath>
@@ -7,14 +7,14 @@
         <reference name="content">
 {{adminIndexContent}}
         </reference>
-    </adminhtml_{{module}}_{{entity}}_index>
-    <adminhtml_{{module}}_{{entity}}_grid>
+    </adminhtml_{{module_entity}}_index>
+    <adminhtml_{{module_entity}}_grid>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_grid" name="{{entity}}_grid"/>
         </block>
-    </adminhtml_{{module}}_{{entity}}_grid>
+    </adminhtml_{{module_entity}}_grid>
     <!-- {{Entity}} add/edit action -->
-    <adminhtml_{{module}}_{{entity}}_edit>
+    <adminhtml_{{module_entity}}_edit>
         <update handle="editor"/>
         <reference name="menu">
             <action method="setActive">
@@ -27,5 +27,5 @@
         <reference name="left">
             {{entityEditLayoutLeft}}<block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tabs" name="{{entity}}_tabs"></block>
         </reference>{{entityLayoutAdditional}}
-    </adminhtml_{{module}}_{{entity}}_edit>
+    </adminhtml_{{module_entity}}_edit>
 

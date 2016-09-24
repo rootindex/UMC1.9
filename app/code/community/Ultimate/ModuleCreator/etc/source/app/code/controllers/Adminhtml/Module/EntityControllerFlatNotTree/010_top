@@ -7,7 +7,7 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_{{Entity}}Controller extends {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}}
+class {{Namespace}}_{{Module}}_Adminhtml_{{Module_Entity}}Controller extends {{Namespace}}_{{Module}}_Controller_Adminhtml_{{Module}}
 {
     /**
      * init the {{entityLabel}}

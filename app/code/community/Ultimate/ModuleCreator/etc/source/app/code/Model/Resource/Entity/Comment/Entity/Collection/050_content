@@ -80,4 +80,4 @@
     protected function _joinFields()
     {
         $commentTable = Mage::getSingleton('core/resource')
-            ->getTableName('{{namespace}}_{{module}}/{{entity}}_comment');
+            ->getTableName('{{namespace}}_{{module}}/{{entityTable}}_comment');

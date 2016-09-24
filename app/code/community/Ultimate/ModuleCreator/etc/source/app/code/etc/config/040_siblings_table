@@ -1,6 +1,6 @@
-                    <{{entity}}_{{sibling}}>
-                        <table>{{namespace}}_{{module}}_{{entity}}_{{sibling}}</table>
-                    </{{entity}}_{{sibling}}>
-                    <{{sibling}}_{{entity}}>
-                        <table>{{namespace}}_{{module}}_{{entity}}_{{sibling}}</table>
-                    </{{sibling}}_{{entity}}>
+                    <{{entityTable}}_{{sibling}}>
+                        <table>{{namespace}}_{{module}}_{{entityTable}}_{{sibling}}</table>
+                    </{{entityTable}}_{{sibling}}>
+                    <{{sibling}}_{{entityTable}}>
+                        <table>{{namespace}}_{{module}}_{{entityTable}}_{{sibling}}</table>
+                    </{{sibling}}_{{entityTable}}>

@@ -35,7 +35,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Product_Edit_Tab_{{Entity
             $constraint = 'related.product_id=0';
         }
         $collection->getSelect()->joinLeft(
-            array('related' => $collection->getTable('{{namespace}}_{{module}}/{{entity}}_product')),
+            array('related' => $collection->getTable('{{namespace}}_{{module}}/{{entityTable}}_product')),
             'related.{{entity}}_id={{entityTableAlias}}.entity_id AND '.$constraint,
             array('position')
         );

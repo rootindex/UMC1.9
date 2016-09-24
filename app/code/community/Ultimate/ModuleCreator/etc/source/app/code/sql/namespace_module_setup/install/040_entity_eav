@@ -1,5 +1,5 @@
 $table = $this->getConnection()
-    ->newTable($this->getTable('{{namespace}}_{{module}}/{{entity}}'))
+    ->newTable($this->getTable('{{namespace}}_{{module}}/{{entityTable}}'))
     ->addColumn(
         'entity_id',
         Varien_Db_Ddl_Table::TYPE_INTEGER,
@@ -50,21 +50,21 @@ $table = $this->getConnection()
     )
     ->addIndex(
         $this->getIdxName(
-            '{{namespace}}_{{module}}/{{entity}}',
+            '{{namespace}}_{{module}}/{{entityTable}}',
             array('entity_type_id')
         ),
         array('entity_type_id')
     )
     ->addIndex(
         $this->getIdxName(
-            '{{namespace}}_{{module}}/{{entity}}',
+            '{{namespace}}_{{module}}/{{entityTable}}',
             array('attribute_set_id')
         ),
         array('attribute_set_id')
     )
     ->addForeignKey(
         $this->getFkName(
-            '{{namespace}}_{{module}}/{{entity}}',
+            '{{namespace}}_{{module}}/{{entityTable}}',
             'attribute_set_id',
             'eav/attribute_set',
             'attribute_set_id'
@@ -77,7 +77,7 @@ $table = $this->getConnection()
     )
     ->addForeignKey(
         $this->getFkName(
-            '{{namespace}}_{{module}}/{{entity}}',
+            '{{namespace}}_{{module}}/{{entityTable}}',
             'entity_type_id',
             'eav/entity_type',
             'entity_type_id'
@@ -124,7 +124,7 @@ ${{entity}}Eav['decimal'] = array(
 
 foreach (${{entity}}Eav as $type => $options) {
     $table = $this->getConnection()
-        ->newTable($this->getTable(array('{{namespace}}_{{module}}/{{entity}}', $type)))
+        ->newTable($this->getTable(array('{{namespace}}_{{module}}/{{entityTable}}', $type)))
         ->addColumn(
             'value_id',
             Varien_Db_Ddl_Table::TYPE_INTEGER,
@@ -188,7 +188,7 @@ foreach (${{entity}}Eav as $type => $options) {
         )
         ->addIndex(
             $this->getIdxName(
-                array('{{namespace}}_{{module}}/{{entity}}', $type),
+                array('{{namespace}}_{{module}}/{{entityTable}}', $type),
                 array('entity_id', 'attribute_id', 'store_id'),
                 Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
             ),
@@ -197,28 +197,28 @@ foreach (${{entity}}Eav as $type => $options) {
         )
         ->addIndex(
             $this->getIdxName(
-                array('{{namespace}}_{{module}}/{{entity}}', $type),
+                array('{{namespace}}_{{module}}/{{entityTable}}', $type),
                 array('store_id')
             ),
             array('store_id')
         )
         ->addIndex(
             $this->getIdxName(
-                array('{{namespace}}_{{module}}/{{entity}}', $type),
+                array('{{namespace}}_{{module}}/{{entityTable}}', $type),
                 array('entity_id')
             ),
             array('entity_id')
         )
         ->addIndex(
             $this->getIdxName(
-                array('{{namespace}}_{{module}}/{{entity}}', $type),
+                array('{{namespace}}_{{module}}/{{entityTable}}', $type),
                 array('attribute_id')
             ),
             array('attribute_id')
         )
         ->addForeignKey(
             $this->getFkName(
-                array('{{namespace}}_{{module}}/{{entity}}', $type),
+                array('{{namespace}}_{{module}}/{{entityTable}}', $type),
                 'attribute_id',
                 'eav/attribute',
                 'attribute_id'
@@ -231,20 +231,20 @@ foreach (${{entity}}Eav as $type => $options) {
         )
         ->addForeignKey(
             $this->getFkName(
-                array('{{namespace}}_{{module}}/{{entity}}', $type),
+                array('{{namespace}}_{{module}}/{{entityTable}}', $type),
                 'entity_id',
-                '{{namespace}}_{{module}}/{{entity}}',
+                '{{namespace}}_{{module}}/{{entityTable}}',
                 'entity_id'
             ),
             'entity_id',
-            $this->getTable('{{namespace}}_{{module}}/{{entity}}'),
+            $this->getTable('{{namespace}}_{{module}}/{{entityTable}}'),
             'entity_id',
             Varien_Db_Ddl_Table::ACTION_CASCADE,
             Varien_Db_Ddl_Table::ACTION_CASCADE
         )
         ->addForeignKey(
             $this->getFkName(
-                array('{{namespace}}_{{module}}/{{entity}}', $type),
+                array('{{namespace}}_{{module}}/{{entityTable}}', $type),
                 'store_id',
                 'core/store',
                 'store_id'

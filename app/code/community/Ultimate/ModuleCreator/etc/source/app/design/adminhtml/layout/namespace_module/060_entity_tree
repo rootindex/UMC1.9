@@ -1,4 +1,4 @@
-    <adminhtml_{{module}}_{{entity}}_edit>
+    <adminhtml_{{module_entity}}_edit>
         <update handle="editor"/>{{entityLayoutAdditional}}
         <reference name="left">
             <block name="{{entity}}.tree" type="{{namespace}}_{{module}}/adminhtml_{{entity}}_tree" />
@@ -9,4 +9,4 @@
         <reference name="js">
             <block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
         </reference>
-    </adminhtml_{{module}}_{{entity}}_edit>
+    </adminhtml_{{module_entity}}_edit>

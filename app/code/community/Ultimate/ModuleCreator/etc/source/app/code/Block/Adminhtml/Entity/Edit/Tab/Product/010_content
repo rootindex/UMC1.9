@@ -47,7 +47,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Product exten
         }
         $collection->joinField(
             'position',
-            '{{namespace}}_{{module}}/{{entity}}_product',
+            '{{namespace}}_{{module}}/{{entityTable}}_product',
             'position',
             'product_id=entity_id',
             $constraint,

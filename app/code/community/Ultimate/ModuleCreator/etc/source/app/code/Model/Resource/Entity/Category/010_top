@@ -19,5 +19,5 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category extends Mage_C
      */
     protected function  _construct()
     {
-        $this->_init('{{namespace}}_{{module}}/{{entity}}_category', 'rel_id');
+        $this->_init('{{namespace}}_{{module}}/{{entityTable}}_category', 'rel_id');
     }

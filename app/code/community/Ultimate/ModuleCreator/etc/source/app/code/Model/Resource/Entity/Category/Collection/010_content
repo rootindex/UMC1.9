@@ -27,7 +27,7 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Category_Collection ext
     {
         if (!$this->_joinedFields) {
             $this->getSelect()->join(
-                array('related' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_category')),
+                array('related' => $this->getTable('{{namespace}}_{{module}}/{{entityTable}}_category')),
                 'related.category_id = e.entity_id',
                 array('position')
             );

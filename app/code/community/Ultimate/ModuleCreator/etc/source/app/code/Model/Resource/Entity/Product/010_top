@@ -18,5 +18,5 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product extends Mage_Co
      */
     protected function  _construct()
     {
-        $this->_init('{{namespace}}_{{module}}/{{entity}}_product', 'rel_id');
+        $this->_init('{{namespace}}_{{module}}/{{entityTable}}_product', 'rel_id');
     }

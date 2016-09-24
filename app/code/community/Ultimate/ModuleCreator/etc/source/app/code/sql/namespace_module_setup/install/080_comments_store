@@ -1,5 +1,5 @@
 $table = $this->getConnection()
-    ->newTable($this->getTable('{{namespace}}_{{module}}/{{entity}}_comment_store'))
+    ->newTable($this->getTable('{{namespace}}_{{module}}/{{entityTable}}_comment_store'))
     ->addColumn(
         'comment_id',
         Varien_Db_Ddl_Table::TYPE_SMALLINT,
@@ -23,27 +23,27 @@ $table = $this->getConnection()
     )
     ->addIndex(
         $this->getIdxName(
-            '{{namespace}}_{{module}}/{{entity}}_comment_store',
+            '{{namespace}}_{{module}}/{{entityTable}}_comment_store',
             array('store_id')
         ),
         array('store_id')
     )
     ->addForeignKey(
         $this->getFkName(
-            '{{namespace}}_{{module}}/{{entity}}_comment_store',
+            '{{namespace}}_{{module}}/{{entityTable}}_comment_store',
             'comment_id',
-            '{{namespace}}_{{module}}/{{entity}}_comment',
+            '{{namespace}}_{{module}}/{{entityTable}}_comment',
             'comment_id'
         ),
         'comment_id',
-        $this->getTable('{{namespace}}_{{module}}/{{entity}}_comment'),
+        $this->getTable('{{namespace}}_{{module}}/{{entityTable}}_comment'),
         'comment_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
         Varien_Db_Ddl_Table::ACTION_CASCADE
     )
     ->addForeignKey(
         $this->getFkName(
-            '{{namespace}}_{{module}}/{{entity}}_comment_store',
+            '{{namespace}}_{{module}}/{{entityTable}}_comment_store',
             'store_id',
             'core/store',
             'store_id'

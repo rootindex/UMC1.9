@@ -7,7 +7,7 @@
  * @package     {{Namespace}}_{{Module}}
  * {{qwertyuiopp}}
  */
-class {{Namespace}}_{{Module}}_Adminhtml_{{Module}}_{{Entity}}Controller extends Mage_Adminhtml_Controller_Action
+class {{Namespace}}_{{Module}}_Adminhtml_{{Module_Entity}}Controller extends Mage_Adminhtml_Controller_Action
 {
     /**
      * Initialize requested {{entityLabel}} and put it into registry.

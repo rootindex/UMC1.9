@@ -14,7 +14,7 @@
         }
         if (!isset($this->_joinedFields['{{sibling}}'])) {
             $this->getSelect()->join(
-                array('related_{{sibling}}' => $this->getTable('{{namespace}}_{{module}}/{{entity}}_{{sibling}}')),
+                array('related_{{sibling}}' => $this->getTable('{{namespace}}_{{module}}/{{entityTable}}_{{sibling}}')),
                 'related_{{sibling}}.{{entity}}_id = {{entityTableAlias}}.entity_id',
                 array('position')
             );

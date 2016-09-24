@@ -54,7 +54,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Catalog_Category_Tab_{{Entity}} e
             $constraint = 'related.category_id=0';
         }
         $collection->getSelect()->joinLeft(
-            array('related' => $collection->getTable('{{namespace}}_{{module}}/{{entity}}_category')),
+            array('related' => $collection->getTable('{{namespace}}_{{module}}/{{entityTable}}_category')),
             'related.{{entity}}_id={{entityTableAlias}}.entity_id AND '.$constraint,
             array('position')
         );

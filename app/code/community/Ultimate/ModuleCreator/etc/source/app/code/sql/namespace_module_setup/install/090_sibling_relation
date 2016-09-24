@@ -1,5 +1,5 @@
 $table = $this->getConnection()
-    ->newTable($this->getTable('{{namespace}}_{{module}}/{{entity}}_{{sibling}}'))
+    ->newTable($this->getTable('{{namespace}}_{{module}}/{{entityTable}}_{{sibling}}'))
     ->addColumn(
         'rel_id',
         Varien_Db_Ddl_Table::TYPE_INTEGER,
@@ -46,22 +46,22 @@ $table = $this->getConnection()
     )
     ->addForeignKey(
         $this->getFkName(
-            '{{namespace}}_{{module}}/{{entity}}_{{sibling}}',
+            '{{namespace}}_{{module}}/{{entityTable}}_{{sibling}}',
             '{{entity}}_id',
-            '{{namespace}}_{{module}}/{{entity}}',
+            '{{namespace}}_{{module}}/{{entityTable}}',
             'entity_id'
         ),
         '{{entity}}_id',
-        $this->getTable('{{namespace}}_{{module}}/{{entity}}'),
+        $this->getTable('{{namespace}}_{{module}}/{{entityTable}}'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
         Varien_Db_Ddl_Table::ACTION_CASCADE
     )
     ->addForeignKey(
         $this->getFkName(
-            '{{namespace}}_{{module}}/{{entity}}_{{sibling}}',
+            '{{namespace}}_{{module}}/{{entityTable}}_{{sibling}}',
             '{{sibling}}_id',
-            '{{namespace}}_{{module}}/{{entity}}',
+            '{{namespace}}_{{module}}/{{entityTable}}',
             'entity_id'
         ),
         '{{sibling}}_id',
@@ -72,7 +72,7 @@ $table = $this->getConnection()
     )
     ->addIndex(
         $this->getIdxName(
-            '{{namespace}}_{{module}}/{{entity}}_{{sibling}}',
+            '{{namespace}}_{{module}}/{{entityTable}}_{{sibling}}',
             array('{{entity}}_id', '{{sibling}}_id'),
             Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
         ),

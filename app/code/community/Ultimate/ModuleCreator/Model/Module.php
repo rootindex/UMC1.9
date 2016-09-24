@@ -845,8 +845,8 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         foreach ($this->getRelations(Ultimate_ModuleCreator_Model_Relation::RELATION_TYPE_SIBLING) as $relation) {
             $entities = $relation->getEntities();
             $tableName = $namespace.'_'.$module.'_'.
-                $entities[0]->getPlaceholders('{{entity}}').'_'.
-                $entities[1]->getPlaceholders('{{entity}}');
+                $entities[0]->getPlaceholders('{{entityTable}}').'_'.
+                $entities[1]->getPlaceholders('{{entityTable}}');
             $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
         }
         foreach ($this->getEntities() as $entity) {
@@ -867,32 +867,32 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                     "' AND entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = 'catalog_category');";
             }
             if ($entity->getAllowCommentByStore()) {
-                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_comment_store';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_comment_store';
                 $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getAllowComment()) {
-                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_comment';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_comment';
                 $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getLinkProduct()) {
-                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_product';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_product';
                 $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getLinkCategory()) {
-                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_category';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_category';
                 $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getStore()) {
-                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_store';
+                $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_store';
                 $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
             }
             if ($entity->getIsEav()) {
                 foreach (array('int', 'decimal','datetime', 'varchar', 'text') as $type) {
-                    $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}').'_'.$type;
+                    $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_'.$type;
                     $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
                 }
             }
-            $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entity}}');
+            $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}');
             $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
         }
         if ($this->getHasEav()) {
@@ -1725,7 +1725,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         return $this->getLinkProduct() || $this->getLinkCategory();
     }
 
-    /**
+	/**
      * get menu for entities
      *
      * @access public

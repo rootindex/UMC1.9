@@ -1,4 +1,4 @@
-    <adminhtml_{{module}}_{{entity}}_comment_index>
+    <adminhtml_{{module_entity}}_comment_index>
         <reference name="menu">
             <action method="setActive">
                 <menupath>{{selectedMenuPath}}_comment</menupath>
@@ -7,13 +7,13 @@
         <reference name="content">
             <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_comment" name="{{entity}}_comment_grid"/>
         </reference>
-    </adminhtml_{{module}}_{{entity}}_comment_index>
-    <adminhtml_{{module}}_{{entity}}_comment_grid>
+    </adminhtml_{{module_entity}}_comment_index>
+    <adminhtml_{{module_entity}}_comment_grid>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_grid" name="{{entity}}_comment_grid"/>
         </block>
-    </adminhtml_{{module}}_{{entity}}_comment_grid>
-    <adminhtml_{{module}}_{{entity}}_comment_edit>
+    </adminhtml_{{module_entity}}_comment_grid>
+    <adminhtml_{{module_entity}}_comment_edit>
         <update handle="editor"/>
         <reference name="menu">
             <action method="setActive">
@@ -26,4 +26,4 @@
         <reference name="left">
             <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_comment_edit_tabs" name="{{entity}}_comment_tabs"></block>
         </reference>
-    </adminhtml_{{module}}_{{entity}}_comment_edit>
+    </adminhtml_{{module_entity}}_comment_edit>

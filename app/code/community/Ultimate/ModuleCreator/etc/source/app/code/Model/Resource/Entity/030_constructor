@@ -7,5 +7,5 @@
      */
     public function _construct()
     {
-        $this->_init('{{namespace}}_{{module}}/{{entity}}', 'entity_id');
+        $this->_init('{{namespace}}_{{module}}/{{entityTable}}', 'entity_id');
     }

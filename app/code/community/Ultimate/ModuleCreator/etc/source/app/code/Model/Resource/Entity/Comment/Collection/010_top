@@ -21,4 +21,4 @@ class {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Comment_Collection exte
     public function _construct()
     {
         parent::_construct();
-        $this->_init('{{namespace}}_{{module}}/{{entity}}_comment');
+        $this->_init('{{namespace}}_{{module}}/{{entityTable}}_comment');
