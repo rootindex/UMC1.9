@@ -423,7 +423,7 @@ UMC.Entity.prototype = {
      * @returns {Array}
      */
     getReloaders: function(){
-        var classes = ['type', 'is_tree', 'create-frontend', 'create-list', 'create-view', 'link-product', 'link-category', 'product-attribute', 'category-attribute', 'allow-comment', 'rss', 'widget', 'url-rewrite'];
+        var classes = ['type', 'is_tree', 'create-frontend', 'create-list', 'create-view', 'link-product', 'link-customer', 'link-category', 'product-attribute', 'customer-attribute', 'category-attribute', 'allow-comment', 'rss', 'widget', 'url-rewrite'];
         var reloaders = [];
         for (var i=0; i<classes.length; i++){
             reloaders.push(this.getElementByClass(classes[i]));
@@ -492,11 +492,17 @@ UMC.Entity.prototype = {
         if (item.hasClassName('use-link-product')){
             canEnable = canEnable && (this.getValueByClass('link-product') == 1);
         }
+        if (item.hasClassName('use-link-customer')){
+            canEnable = canEnable && (this.getValueByClass('link-customer') == 1);
+        }
         if (item.hasClassName('use-link-category')){
             canEnable = canEnable && (this.getValueByClass('link-category') == 1);
         }
         if (item.hasClassName('use-product-attribute')){
             canEnable = canEnable && (this.getValueByClass('product-attribute') == 1);
+        }
+        if (item.hasClassName('use-customer-attribute')){
+            canEnable = canEnable && (this.getValueByClass('customer-attribute') == 1);
         }
         if (item.hasClassName('use-category-attribute')){
             canEnable = canEnable && (this.getValueByClass('category-attribute') == 1);

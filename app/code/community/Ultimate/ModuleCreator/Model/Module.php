@@ -30,6 +30,7 @@
  * @method Ultimate_ModuleCreator_Model_Module setEditor()
  * @method Ultimate_ModuleCreator_Model_Module setHasConfigDefaults()
  * @method Ultimate_ModuleCreator_Model_Module setLinkProduct()
+ * @method Ultimate_ModuleCreator_Model_Module setLinkCustomer()
  * @method Ultimate_ModuleCreator_Model_Module setHasObserver()
  * @method Ultimate_ModuleCreator_Model_Module setLinkCategory()
  * @method Ultimate_ModuleCreator_Model_Module setLinkCore()
@@ -43,6 +44,7 @@
  * @method Ultimate_ModuleCreator_Model_Module setHasWebsite()
  * @method Ultimate_ModuleCreator_Model_Module setHasSeo()
  * @method Ultimate_ModuleCreator_Model_Module setShowOnProduct()
+ * @method Ultimate_ModuleCreator_Model_Module setShowOnCustomer()
  * @method Ultimate_ModuleCreator_Model_Module setShowOnCategory()
  * @method Ultimate_ModuleCreator_Model_Module setShowInCategoryMenu()
  * @method Ultimate_ModuleCreator_Model_Module setSearch()
@@ -219,13 +221,23 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
             $this->setLinkProduct(true);
             $this->setHasObserver(true);
         }
+		if ($entity->getLinkCustomer()) {
+			$this->setLinkCustomer(true);
+			$this->setHasObserver(true);
+		}
         if ($entity->getLinkCategory()) {
             $this->setLinkCategory(true);
             $this->setHasObserver(true);
         }
-        if ($entity->getLinkCore()) {
-            $this->setLinkCore(true);
+		if ($entity->getLinkCore()) {
+			$this->setLinkCore(true);
+		}
+        if ($entity->getLinkCoreCatalog()) {
+            $this->setLinkCoreCatalog(true);
         }
+		if ($entity->getLinkCoreCustomer()) {
+			$this->setLinkCoreCustomer(true);
+		}
         if ($entity->getUrlRewrite()) {
             $this->setUrlRewrite(true);
         }
@@ -259,6 +271,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if ($entity->getShowOnProduct()) {
             $this->setShowOnProduct(true);
         }
+		if ($entity->getShowOnCustomer()) {
+			$this->setShowOnCustomer(true);
+		}
         if ($entity->getShowOnCategory()) {
             $this->setShowOnCategory(true);
         }
@@ -271,6 +286,9 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         if ($entity->getProductAttribute() ||$entity->getCategoryAttribute()) {
             $this->setHasCatalogAttribute(true);
         }
+		if ($entity->getCustomerAttribute()) {
+			$this->setHasCustomerAttribute(true);
+		}
         if ($entity->getRest()) {
             $this->setRest(true);
         }
@@ -862,6 +880,12 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                     "' AND entity_type_id IN
                     (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = 'catalog_product');";
             }
+			if ($entity->getCustomerAttribute()) {
+				$lines[] = "DELETE"." FROM eav_attribute WHERE attribute_code = '".
+					$entity->getCustomerAttributeCode().
+					"' AND entity_type_id IN
+                    (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = 'customer');";
+			}
             if ($entity->getCategoryAttribute()) {
                 $lines[] = "DELETE"." FROM eav_attribute WHERE attribute_code = '".$entity->getCategoryAttributeCode().
                     "' AND entity_type_id IN (SELECT entity_type_id FROM eav_entity_type WHERE entity_type_code = 'catalog_category');";
@@ -878,6 +902,10 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_product';
                 $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
             }
+			if ($entity->getLinkCustomer()) {
+				$tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_customer';
+				$lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
+			}
             if ($entity->getLinkCategory()) {
                 $tableName = $namespace.'_'.$module.'_'.$entity->getPlaceholders('{{entityTable}}').'_category';
                 $lines[] = 'DROP'.' TABLE IF EXISTS '.$tableName.';';
@@ -1669,6 +1697,7 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
                 '{{ResourceSetup}}'                     => $this->getResourceSetupModel(),
                 '{{depends}}'                           => $this->getDepends(),
                 '{{productViewLayout}}'                 => $this->getProductViewLayout(),
+				'{{customerViewLayout}}'                => $this->getCustomerViewLayout(),
                 '{{categoryViewLayout}}'                => $this->getCategoryViewLayout(),
                 '{{defaultLayoutHandle}}'               => $this->getFrontendDefaultLayoutHandle(),
                 '{{categoryMenuEvent}}'                 => $this->getCategoryMenuEvent(),
@@ -1726,6 +1755,18 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
     }
 
 	/**
+	 * check if module related to customer
+	 *
+	 * @access public
+	 * @return bool
+	 * @author Douglas Ianitsky <ianitsky@gmail.com>
+	 */
+	public function getHasCustomerRelation()
+	{
+		return $this->getLinkCustomer();
+	}
+
+    /**
      * get menu for entities
      *
      * @access public
@@ -1951,9 +1992,12 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
     {
         if (!$this->hasData('_depends')) {
             $dependency = array('<Mage_Core />'=>1);
-            if ($this->getLinkCore() || $this->getHasEav()) {
+            if ($this->getLinkCoreCatalog() || $this->getHasEav()) {
                 $dependency['<Mage_Catalog />'] = 1;
             }
+			if ($this->getLinkCoreCustomer() || $this->getHasEav()) {
+				$dependency['<Mage_Customer />'] = 1;
+			}
             $eol = $this->getEol();
             $padding = $this->getPadding(4);
             $depends = '';
@@ -1999,6 +2043,42 @@ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_A
         }
         return $content;
     }
+
+	/**
+	 * get layout for customer view page
+	 *
+	 * @access public
+	 * @return string
+	 * @author Douglas Ianitsky <ianitsky@gmail.com>
+	 */
+	public function getCustomerViewLayout()
+	{
+		$content = '';
+		$padding = $this->getPadding(3);
+		$eol     = $this->getEol();
+		$tab     = $this->getPadding();
+		$ns      = $this->getNamespace(true);
+		$module  = $this->getLowerModuleName();
+		foreach ($this->getEntities() as $entity) {
+			$name  = strtolower($entity->getNameSingular());
+			$names = strtolower($entity->getNamePlural());
+			$label = $entity->getLabelPlural();
+			if ($entity->getShowOnCustomer()) {
+				$content .= $padding.
+					'<block type="'.$ns.'_'.$module.'/customer_list_'.
+					$name.'" name="customer.info.'.$names.'" as="customer_'.$names.
+					'" template="'.$ns.'_'.$module.'/customer/list/'.$name.'.phtml">'.$eol;
+				$content .= $padding.$tab.
+					'<action method="addToParentGroup"><group>detailed_info</group></action>'.$eol;
+				$content .= $padding.$tab.
+					'<action method="setTitle" translate="value" module="'.
+					$ns.'_'.$module.'"><value>'.$label.'</value></action>'.$eol;
+				$content .= $padding.'</block>'.$eol;
+			}
+		}
+		return $content;
+	}
+
     /**
      * get layout for category view page
      *

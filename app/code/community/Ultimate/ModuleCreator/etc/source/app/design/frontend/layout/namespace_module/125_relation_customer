@@ -1,0 +1,4 @@
+    <catalog_customer_view>
+        <reference name="customer.info">
+{{customerViewLayout}}        </reference>
+    </catalog_customer_view>

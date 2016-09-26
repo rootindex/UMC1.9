@@ -1,0 +1,35 @@
+
+    /**
+     * get the selected {{entitiesLabel}} for a customer
+     *
+     * @access public
+     * @param Mage_Customer_Model_Customer $customer
+     * @return array()
+     * {{qwertyuiop}}
+     */
+    public function getSelected{{Entities}}(Mage_Customer_Model_Customer $customer)
+    {
+        if (!$customer->hasSelected{{Entities}}()) {
+            ${{entities}} = array();
+            foreach ($this->getSelected{{Entities}}Collection($customer) as ${{entity}}) {
+                ${{entities}}[] = ${{entity}};
+            }
+            $customer->setSelected{{Entities}}(${{entities}});
+        }
+        return $customer->getData('selected_{{entities}}');
+    }
+
+    /**
+     * get {{entityLabel}} collection for a customer
+     *
+     * @access public
+     * @param Mage_Customer_Model_Customer $customer
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
+     * {{qwertyuiop}}
+     */
+    public function getSelected{{Entities}}Collection(Mage_Customer_Model_Customer $customer)
+    {
+        $collection = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_collection')
+            ->addCustomerFilter($customer);
+        return $collection;
+    }

@@ -1,0 +1,19 @@
+
+    /**
+     * save {{entityLabel}} - customer relation
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return {{Namespace}}_{{Module}}_Model_Adminhtml_Observer
+     * {{qwertyuiop}}
+     */
+    public function saveCustomer{{Entity}}Data($observer)
+    {
+        $post = Mage::app()->getRequest()->getPost('{{entities}}', -1);
+        if ($post != '-1') {
+            $post = Mage::helper('adminhtml/js')->decodeGridSerializedInput($post);
+            $customer = Mage::registry('current_customer');
+            ${{entity}}Customer = Mage::getResourceSingleton('{{namespace}}_{{module}}/{{entity}}_customer')
+                ->saveCustomerRelation($customer, $post);
+        }
+        return $this;
+    }

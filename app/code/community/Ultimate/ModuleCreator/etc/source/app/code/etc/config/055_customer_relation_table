@@ -1,0 +1,3 @@
+                    <{{entityTable}}_customer>
+                        <table>{{namespace}}_{{module}}_{{entityTable}}_customer</table>
+                    </{{entityTable}}_customer>

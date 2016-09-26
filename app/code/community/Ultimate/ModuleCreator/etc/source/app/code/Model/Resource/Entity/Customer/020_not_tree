@@ -1,0 +1,59 @@
+    /**
+     * Save {{entityLabel}} - customer relations
+     *
+     * @access public
+     * @param {{Namespace}}_{{Module}}_Model_{{Entity}} ${{entity}}
+     * @param array $data
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Customer
+     * {{qwertyuiop}}
+     */
+    public function save{{Entity}}Relation(${{entity}}, $data)
+    {
+        if (!is_array($data)) {
+            $data = array();
+        }
+        $deleteCondition = $this->_getWriteAdapter()->quoteInto('{{entity}}_id=?', ${{entity}}->getId());
+        $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
+
+        foreach ($data as $customerId => $info) {
+            $this->_getWriteAdapter()->insert(
+                $this->getMainTable(),
+                array(
+                    '{{entity}}_id' => ${{entity}}->getId(),
+                    'customer_id'    => $customerId,
+                    'position'      => @$info['position']
+                )
+            );
+        }
+        return $this;
+    }
+
+    /**
+     * Save  customer - {{entityLabel}} relations
+     *
+     * @access public
+     * @param Mage_Customer_Model_Customer $customer
+     * @param array $data
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Customer
+     * @{{qwertyuiop}}
+     */
+    public function saveCustomerRelation($customer, $data)
+    {
+        if (!is_array($data)) {
+            $data = array();
+        }
+        $deleteCondition = $this->_getWriteAdapter()->quoteInto('customer_id=?', $customer->getId());
+        $this->_getWriteAdapter()->delete($this->getMainTable(), $deleteCondition);
+
+        foreach ($data as ${{entity}}Id => $info) {
+            $this->_getWriteAdapter()->insert(
+                $this->getMainTable(),
+                array(
+                    '{{entity}}_id' => ${{entity}}Id,
+                    'customer_id'    => $customer->getId(),
+                    'position'      => @$info['position']
+                )
+            );
+        }
+        return $this;
+    }

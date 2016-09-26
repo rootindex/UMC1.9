@@ -1,0 +1,20 @@
+
+    /**
+     * get customers json
+     *
+     * @access public
+     * @return string
+     * {{qwertyuiop}}
+     */
+    public function getCustomersJson()
+    {
+        $customers = $this->get{{Entity}}()->getSelectedCustomers();
+        if (!empty($customers)) {
+            $positions = array();
+            foreach ($customers as $customer) {
+                $positions[$customer->getId()] = $customer->getPosition();
+            }
+            return Mage::helper('core')->jsonEncode($positions);
+        }
+        return '{}';
+    }

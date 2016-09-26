@@ -1,0 +1,28 @@
+
+    /**
+     * add the {{entityLabel}} tab to customers
+     *
+     * @access public
+     * @param Varien_Event_Observer $observer
+     * @return {{Namespace}}_{{Module}}_Model_Adminhtml_Observer
+     * {{qwertyuiop}}
+     */
+    public function addCustomer{{Entity}}Block($observer)
+    {
+        $block = $observer->getEvent()->getBlock();
+        if ($block instanceof Mage_Adminhtml_Block_Customer_Edit_Tabs) {
+            $block->addTabAfter(
+                '{{entities}}',
+                array(
+                    'label' => Mage::helper('{{namespace}}_{{module}}')->__('{{EntitiesLabel}}'),
+                    'url'   => Mage::helper('adminhtml')->getUrl(
+                        'adminhtml/{{module_entity}}_customer/{{entities}}',
+                        array('_current' => true)
+                    ),
+                    'class' => 'ajax',
+                ),
+                'addresses'
+            );
+        }
+        return $this;
+    }

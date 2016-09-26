@@ -1,0 +1,14 @@
+diff a/app/code/community/Ultimate/ModuleCreator/Model/Module.php b/app/code/community/Ultimate/ModuleCreator/Model/Module.php	(rejected hunks)
+@@ -58,9 +60,12 @@
+  * @method string getVersion()
+  * @method bool getCreateFrontend()
+  * @method bool getLinkProduct()
++ * @method bool getLinkCustomer()
+  * @method bool getLinkCategory()
+  * @method bool getHasCatalogAttribute()
+  * @method bool getLinkCore()
++ * @method bool getLinkCoreCatalog()
++ * @method bool getLinkCoreCustomer()
+  * @method bool getShowInCategoryMenu()
+  */
+ class Ultimate_ModuleCreator_Model_Module extends Ultimate_ModuleCreator_Model_Abstract

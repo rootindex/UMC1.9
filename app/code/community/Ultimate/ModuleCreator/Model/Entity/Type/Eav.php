@@ -358,6 +358,11 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
                 $entity.'ProductTable = $'."this->getTable('".
                 $namespace.'_'.$module."/".$entity."_product');".$eol;
         }
+		if ($this->getEntity()->getLinkCustomer()) {
+			$content .= $padding.'$'.'this->_'.
+				$entity.'CustomerTable = $'."this->getTable('".
+				$namespace.'_'.$module."/".$entity."_customer');".$eol;
+		}
         if ($this->getEntity()->getLinkCategory()) {
             $content .= $padding.'$'.'this->_'.
                 $entity.'CategoryTable = $'."this->getTable('".
@@ -390,6 +395,9 @@ class Ultimate_ModuleCreator_Model_Entity_Type_Eav extends Ultimate_ModuleCreato
         if ($this->getEntity()->getLinkProduct()) {
             $content .= $padding.'protected $'.'_'.$entity.'ProductTable = null;'.$eol;
         }
+		if ($this->getEntity()->getLinkCustomer()) {
+			$content .= $padding.'protected $'.'_'.$entity.'CustomerTable = null;'.$eol;
+		}
         if ($this->getEntity()->getLinkCategory()) {
             $content .= $padding.'protected $'.'_'.$entity.'CategoryTable = null;'.$eol;
         }

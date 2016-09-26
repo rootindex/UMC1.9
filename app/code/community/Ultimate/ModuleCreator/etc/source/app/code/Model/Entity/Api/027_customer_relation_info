@@ -1,0 +1,6 @@
+        //related customers
+        $result['customers'] = array();
+        $relatedCustomersCollection = ${{entity}}->getSelectedCustomersCollection();
+        foreach ($relatedCustomersCollection as $customer) {
+            $result['customers'][$customer->getId()] = $customer->getPosition();
+        }

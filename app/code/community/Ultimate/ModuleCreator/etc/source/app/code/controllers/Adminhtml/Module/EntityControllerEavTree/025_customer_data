@@ -1,0 +1,10 @@
+                $customers = $this->getRequest()->getPost('{{entity}}_customers', -1);
+                if ($customers != -1) {
+                    $customerData = array();
+                    parse_str($customers, $customerData);
+                    $customers = array();
+                    foreach ($customerData as $id => $position) {
+                        $customers[$id]['position'] = $position;
+                    }
+                    ${{entity}}->setCustomersData($customerData);
+                }

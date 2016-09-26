@@ -1,0 +1,8 @@
+        $this->addTab(
+            'customers',
+            array(
+                'label' => Mage::helper('{{namespace}}_{{module}}')->__('Associated customers'),
+                'url'   => $this->getUrl('*/*/customers', array('_current' => true)),
+                'class' => 'ajax'
+            )
+        );

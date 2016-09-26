@@ -158,13 +158,21 @@
                     </depend>
                     <sort_order>40</sort_order>
                 </product_relation>
+                <customer_relation>
+                    <name>045_customer_relation</name>
+                    <depend>
+                        <is_tree/>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>45</sort_order>
+                </customer_relation>
                 <entity_relation>
                     <name>050_entity_relation</name>
                     <scope>siblings</scope>
                     <depend>
                         <is_tree/>
                     </depend>
-                    <sort_order>40</sort_order>
+                    <sort_order>50</sort_order>
                 </entity_relation>
                 <footer>
                     <name>060_footer</name>
@@ -357,6 +365,25 @@
             </code>
         </entity_product_list_block>
 
+        <entity_customer_list_block>
+            <title>Entity customer list block</title>
+            <description>Block that lists associated customers on entity page.</description>
+            <condition>It is generated for entities that are related to customers.</condition>
+            <source>app/code/Block/Entity/Customer/List/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/{{Entity}}/Customer/List.php</destination>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <show_customers/>
+            </depend>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </entity_customer_list_block>
+
         <entity_category_list_block>
             <title>Entity category list block</title>
             <description>Block that lists associated categories on entity page.</description>
@@ -419,6 +446,50 @@
                 </footer>
             </code>
         </product_entity_list_block>
+
+        <customer_entity_list_block translate="title description condition" module="modulecreator">
+            <title>Entity list on customer page</title>
+            <description>This block is used to show the entities related to the customer on the customer list.</description>
+            <condition>It is generated for entities are linked with customers and are set to appear in the customer list.</condition>
+            <source>app/code/Block/Customer/List/Entity/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/Customer/List/{{Entity}}.php</destination>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <show_on_customer/>
+            </depend>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <store>
+                    <name>020_store</name>
+                    <depend>
+                        <store />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </store>
+                <eav>
+                    <name>030_eav</name>
+                    <depend>
+                        <is_eav />
+                    </depend>
+                    <sort_order>30</sort_order>
+                </eav>
+                <not_eav>
+                    <name>040_not_eav</name>
+                    <depend>
+                        <is_flat />
+                    </depend>
+                    <sort_order>30</sort_order>
+                </not_eav>
+                <footer>
+                    <name>050_footer</name>
+                    <sort_order>50</sort_order>
+                </footer>
+            </code>
+        </customer_entity_list_block>
 
         <category_entity_list_block translate="title description condition" module="modulecreator">
             <title>Entity list on category page</title>
@@ -738,6 +809,43 @@
             </code>
         </product_entity_tab>
 
+        <customer_entity_tab translate="title description condition" module="modulecreator">
+            <title>Entity tab on customer form</title>
+            <description>This is the block for the entity tab on the customer add/edit form</description>
+            <condition>s generated for any entity that is related many to many with customers</condition>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <link_customer/>
+            </depend>
+            <source>app/code/Block/Adminhtml/Customer/Edit/Tab/Entity/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/Adminhtml/Customer/Edit/Tab/{{Entity}}.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <not_tree>
+                    <name>020_not_tree</name>
+                    <sort_order>20</sort_order>
+                    <depend>
+                        <not_is_tree/>
+                    </depend>
+                </not_tree>
+                <tree>
+                    <name>030_tree</name>
+                    <sort_order>30</sort_order>
+                    <depend>
+                        <is_tree/>
+                    </depend>
+                </tree>
+                <footer>
+                    <name>040_footer</name>
+                    <sort_order>40</sort_order>
+                </footer>
+            </code>
+        </customer_entity_tab>
+
         <category_entity_tab translate="title description condition" module="modulecreator">
             <title>Entity tab on product form</title>
             <description>This is the block for the entity tab on the category add/edit form</description>
@@ -1014,40 +1122,57 @@
                     <sort_order>100</sort_order>
                 </product_relation_tree>
 
+                <customer_relation_not_tree>
+                    <name>110_customer_relation_not_tree</name>
+                    <depend>
+                        <not_is_tree/>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>110</sort_order>
+                </customer_relation_not_tree>
+                <customer_relation_tree>
+                    <name>120_customer_relation_tree</name>
+                    <depend>
+                        <is_tree/>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>120</sort_order>
+                </customer_relation_tree>
+
                 <category_relation_not_tree>
-                    <name>110_category_relation_not_tree</name>
+                    <name>130_category_relation_not_tree</name>
                     <depend>
                         <not_is_tree/>
                         <link_category/>
                     </depend>
-                    <sort_order>110</sort_order>
+                    <sort_order>130</sort_order>
                 </category_relation_not_tree>
                 <category_relation_tree>
-                    <name>120_category_relation_tree</name>
+                    <name>140_category_relation_tree</name>
                     <depend>
                         <is_tree/>
                         <link_category/>
                     </depend>
-                    <sort_order>120</sort_order>
+                    <sort_order>140</sort_order>
                 </category_relation_tree>
 
                 <end_prepare_not_tree>
-                    <name>130_end_prepare_not_tree</name>
+                    <name>150_end_prepare_not_tree</name>
                     <depend>
                         <not_is_tree/>
                     </depend>
-                    <sort_order>130</sort_order>
+                    <sort_order>150</sort_order>
                 </end_prepare_not_tree>
                 <end_prepare_tree>
-                    <name>140_end_prepare_tree</name>
+                    <name>160_end_prepare_tree</name>
                     <depend>
                         <is_tree/>
                     </depend>
-                    <sort_order>140</sort_order>
+                    <sort_order>160</sort_order>
                 </end_prepare_tree>
                 <footer>
-                    <name>150_footer</name>
-                    <sort_order>150</sort_order>
+                    <name>170_footer</name>
+                    <sort_order>170</sort_order>
                 </footer>
             </code>
         </entity_form_tabs>
@@ -1108,6 +1233,25 @@
                 </content>
             </code>
         </entity_admin_product_block>
+
+        <entity_admin_customer_block translate="title description condition" module="modulecreator">
+            <title>Admin tab customer relation.</title>
+            <description>From this tab you can set the related customers to your entity.</description>
+            <condition>It is generated for entities that have link to customers enabled</condition>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <link_customer/>
+            </depend>
+            <source>app/code/Block/Adminhtml/Entity/Edit/Tab/Customer/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Block/Adminhtml/{{Entity}}/Edit/Tab/Customer.php</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </entity_admin_customer_block>
 
         <entity_admin_category_block translate="title description condition" module="modulecreator">
             <title>Admin tab category relation.</title>
@@ -2066,6 +2210,43 @@
             </code>
         </entity_admin_product_controller>
 
+        <entity_admin_customer_controller translate="title description condition" module="modulecreator">
+            <title>Entity Admin customer controller</title>
+            <description>Controller for handling entity-customer relation requests</description>
+            <condition>Generated for entities linked many to many with customers.</condition>
+            <filetype>php</filetype>
+            <scope>entity</scope>
+            <depend>
+                <link_customer/>
+            </depend>
+            <source>app/code/controllers/Adminhtml/Module/Entity/CustomerController/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/controllers/Adminhtml/{{ModuleFolder}}/CustomerController.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <not_tree>
+                    <name>020_not_tree</name>
+                    <depend>
+                        <not_is_tree/>
+                    </depend>
+                    <sort_order>20</sort_order>
+                </not_tree>
+                <tree>
+                    <name>030_tree</name>
+                    <depend>
+                        <is_tree/>
+                    </depend>
+                    <sort_order>30</sort_order>
+                </tree>
+                <footer>
+                    <name>040_footer</name>
+                    <sort_order>40</sort_order>
+                </footer>
+            </code>
+        </entity_admin_customer_controller>
+
         <entity_admin_category_controller translate="title description condition" module="modulecreator">
             <title>Entity Admin category controller</title>
             <description>Controller for handling entity-category relation requests</description>
@@ -2192,6 +2373,13 @@
                     </depend>
                     <sort_order>40</sort_order>
                 </save_product_relation>
+                <save_customer_relation>
+                    <name>045_save_customer_relation</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>45</sort_order>
+                </save_customer_relation>
                 <save_category_relation>
                     <name>050_save_category_relation</name>
                     <depend>
@@ -2273,6 +2461,13 @@
                     </depend>
                     <sort_order>170</sort_order>
                 </product_relation_actions>
+                <customer_relation_actions>
+                    <name>145_customer_relation_actions</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>175</sort_order>
+                </customer_relation_actions>
                 <category_relation_actions>
                     <name>150_category_relation_actions</name>
                     <depend>
@@ -2352,6 +2547,13 @@
                     </depend>
                     <sort_order>70</sort_order>
                 </product_data>
+                <customer_data>
+                    <name>075_customer_data</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>70</sort_order>
+                </customer_data>
                 <category_data>
                     <name>080_category_data</name>
                     <depend>
@@ -2381,6 +2583,13 @@
                     </depend>
                     <sort_order>110</sort_order>
                 </product_relation_action>
+                <customer_relation_action>
+                    <name>115_customer_relation_action</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>115</sort_order>
+                </customer_relation_action>
                 <category_relation_action>
                     <name>120_category_relation_action</name>
                     <depend>
@@ -2429,6 +2638,13 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </product_save>
+                <customer_save>
+                    <name>025_save_customer_relation</name>
+                    <depend>
+                        <link_customer />
+                    </depend>
+                    <sort_order>25</sort_order>
+                </customer_save>
                 <category_save>
                     <name>030_save_category_relation</name>
                     <depend>
@@ -2470,6 +2686,13 @@
                     </depend>
                     <sort_order>70</sort_order>
                 </product_relation_action>
+                <customer_relation_action>
+                    <name>075_customer_relation_actions</name>
+                    <depend>
+                        <link_customer />
+                    </depend>
+                    <sort_order>75</sort_order>
+                </customer_relation_action>
                 <category_relation_action>
                     <name>080_category_relation_actions</name>
                     <depend>
@@ -2517,6 +2740,13 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </product_data>
+                <customer_data>
+                    <name>025_customer_data</name>
+                    <depend>
+                        <link_customer />
+                    </depend>
+                    <sort_order>20</sort_order>
+                </customer_data>
                 <category_data>
                     <name>030_category_data</name>
                     <depend>
@@ -2545,6 +2775,13 @@
                     </depend>
                     <sort_order>60</sort_order>
                 </product_relation_action>
+                <customer_relation_action>
+                    <name>065_customer_relation_action</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>65</sort_order>
+                </customer_relation_action>
                 <category_relation_action>
                     <name>070_category_relation_action</name>
                     <depend>
@@ -2646,6 +2883,14 @@
                     </depend>
                     <sort_order>50</sort_order>
                 </product_relation_table>
+                <customer_relation_table>
+                    <name>055_customer_relation_table</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>55</sort_order>
+                </customer_relation_table>
                 <category_relation_table>
                     <name>060_category_relation_table</name>
                     <scope>entity</scope>
@@ -2707,6 +2952,14 @@
                     </depend>
                     <sort_order>140</sort_order>
                 </relation_product_top>
+                <relation_customer_top>
+                    <name>145_relation_customer_top</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>145</sort_order>
+                </relation_customer_top>
                 <relation_events_middle>
                     <name>150_relation_events_middle</name>
                     <depend>
@@ -2723,7 +2976,6 @@
                     <sort_order>160</sort_order>
                 </relation_category_top>
 
-
                 <relation_product_bottom_start>
                     <name>170_relation_product_bottom_start</name>
                     <depend>
@@ -2733,21 +2985,46 @@
                 </relation_product_bottom_start>
 
                 <relation_product_bottom>
-                    <name>180_relation_product_bottom</name>
+                    <name>175_relation_product_bottom</name>
                     <scope>entity</scope>
                     <depend>
                         <link_product/>
                     </depend>
-                    <sort_order>180</sort_order>
+                    <sort_order>175</sort_order>
                 </relation_product_bottom>
 
                 <relation_product_bottom_end>
-                    <name>190_relation_product_bottom_end</name>
+                    <name>180_relation_product_bottom_end</name>
                     <depend>
                         <link_product/>
                     </depend>
-                    <sort_order>190</sort_order>
+                    <sort_order>180</sort_order>
                 </relation_product_bottom_end>
+
+                <relation_customer_bottom_start>
+                    <name>185_relation_customer_bottom_start</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>185</sort_order>
+                </relation_customer_bottom_start>
+
+                <relation_customer_bottom>
+                    <name>190_relation_customer_bottom</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>190</sort_order>
+                </relation_customer_bottom>
+
+                <relation_customer_bottom_end>
+                    <name>195_relation_customer_bottom_end</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>195</sort_order>
+                </relation_customer_bottom_end>
 
                 <relation_category_bottom_start>
                     <name>200_relation_category_bottom_start</name>
@@ -3360,6 +3637,37 @@
             </code>
         </helper_product>
 
+        <helper_customer translate="title description condition" module="modulecreator">
+            <title>Customer helper</title>
+            <description>Helper used for customer relation actions</description>
+            <condition>Is generated if there is at least one entity related to customers</condition>
+            <scope>global</scope>
+            <filetype>php</filetype>
+            <depend>
+                <link_customer/>
+            </depend>
+            <source>app/code/Helper/Customer/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Helper/Customer.php</destination>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <content>
+                    <name>020_content</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>20</sort_order>
+                </content>
+                <footer>
+                    <name>030_footer</name>
+                    <sort_order>30</sort_order>
+                </footer>
+            </code>
+        </helper_customer>
+
         <helper_category translate="title description condition" module="modulecreator">
             <title>Category helper</title>
             <description>Helper used for category relation actions</description>
@@ -3458,8 +3766,8 @@
 
         <model_adminhtml_observer translate="title description condition" module="modulecreator">
             <title>Adminhtml Observer</title>
-            <description>Used for product and category relations</description>
-            <condition>Generated if at least one entity is related to product or categories.</condition>
+            <description>Used for product, customer and category relations</description>
+            <condition>Generated if at least one entity is related to product, customer or categories.</condition>
             <scope>global</scope>
             <filetype>php</filetype>
             <source>app/code/Model/Adminhtml/Observer/</source>
@@ -3499,46 +3807,73 @@
                     <sort_order>40</sort_order>
                 </entity_product_save_tree>
 
+                <entity_customer>
+                    <name>050_entity_customer</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>50</sort_order>
+                </entity_customer>
+                <entity_customer_save_not_tree>
+                    <name>060_entity_customer_save</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                        <not_is_tree/>
+                    </depend>
+                    <sort_order>60</sort_order>
+                </entity_customer_save_not_tree>
+                <entity_customer_save_tree>
+                    <name>070_entity_customer_save_tree</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                        <is_tree/>
+                    </depend>
+                    <sort_order>70</sort_order>
+                </entity_customer_save_tree>
+
                 <entity_category>
-                    <name>050_entity_category</name>
+                    <name>080_entity_category</name>
                     <scope>entity</scope>
                     <depend>
                         <link_category/>
                         <not_is_tree />
                     </depend>
-                    <sort_order>50</sort_order>
+                    <sort_order>80</sort_order>
                 </entity_category>
                 <entity_category_tree>
-                    <name>055_entity_category_tree</name>
+                    <name>085_entity_category_tree</name>
                     <scope>entity</scope>
                     <depend>
                         <link_category/>
                         <is_tree />
                     </depend>
-                    <sort_order>55</sort_order>
+                    <sort_order>85</sort_order>
                 </entity_category_tree>
                 <entity_category_save_not_tree>
-                    <name>060_entity_category_save</name>
+                    <name>090_entity_category_save</name>
                     <scope>entity</scope>
                     <depend>
                         <link_category/>
                         <not_is_tree />
                     </depend>
-                    <sort_order>60</sort_order>
+                    <sort_order>90</sort_order>
                 </entity_category_save_not_tree>
                 <entity_category_save_tree>
-                    <name>070_entity_category_save_tree</name>
+                    <name>100_entity_category_save_tree</name>
                     <scope>entity</scope>
                     <depend>
                         <link_product />
                         <is_tree />
                     </depend>
-                    <sort_order>70</sort_order>
+                    <sort_order>100</sort_order>
                 </entity_category_save_tree>
 
                 <footer>
-                    <name>080_footer</name>
-                    <sort_order>80</sort_order>
+                    <name>110_footer</name>
+                    <sort_order>110</sort_order>
                 </footer>
             </code>
         </model_adminhtml_observer>
@@ -3617,6 +3952,13 @@
                     </depend>
                     <sort_order>30</sort_order>
                 </var_product_relation>
+                <var_customer_relation>
+                    <name>035_var_customer_relation</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>35</sort_order>
+                </var_customer_relation>
                 <var_category_relation>
                     <name>040_var_category_relation</name>
                     <depend>
@@ -3662,6 +4004,13 @@
                     </depend>
                     <sort_order>100</sort_order>
                 </after_save_product>
+                <after_save_customer>
+                    <name>105_after_save_customer</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>105</sort_order>
+                </after_save_customer>
                 <after_save_category>
                     <name>110_after_save_category</name>
                     <depend>
@@ -3686,6 +4035,13 @@
                     </depend>
                     <sort_order>140</sort_order>
                 </product_relation>
+                <customer_relation>
+                    <name>145_customer_relation</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>145</sort_order>
+                </customer_relation>
                 <category_relation>
                     <name>150_category_relation</name>
                     <depend>
@@ -3766,7 +4122,7 @@
         <model_entity_source translate="title description condition" module="modulecreator">
             <title>Entity source model</title>
             <description>Model used as a a source containing all entities</description>
-            <condition>Generated if the entity is set to be a product or category attribute</condition>
+            <condition>Generated if the entity is set to be a product, customer or category attribute</condition>
             <source>app/code/Model/Entity/Source/</source>
             <scope>entity</scope>
             <depend>
@@ -3909,6 +4265,13 @@
                     </depend>
                     <sort_order>24</sort_order>
                 </product_relation_info>
+                <customer_relation_info>
+                    <name>027_customer_relation_info</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>27</sort_order>
+                </customer_relation_info>
                 <category_relation_info>
                     <name>030_category_relation_info</name>
                     <depend>
@@ -3939,6 +4302,13 @@
                     </depend>
                     <sort_order>70</sort_order>
                 </product_relation>
+                <customer_relation>
+                    <name>075_customer_relation</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>75</sort_order>
+                </customer_relation>
                 <category_relation>
                     <name>080_category_relation</name>
                     <depend>
@@ -4007,6 +4377,13 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </product_relation>
+                <customer_relation>
+                    <name>025_customer_relation</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>25</sort_order>
+                </customer_relation>
                 <category_relation>
                     <name>030_category_relation</name>
                     <depend>
@@ -4044,6 +4421,25 @@
                 </content>
             </code>
         </model_entity_product>
+
+        <model_entity_customer translate="title description condition" module="modulecreator">
+            <title>Entity customer model</title>
+            <description>Model for relations between entities and customers</description>
+            <condition>Is generated if you choose to link an entity with customers</condition>
+            <filetype>php</filetype>
+            <scope>entity</scope>
+            <depend>
+                <link_customer/>
+            </depend>
+            <source>app/code/Model/Entity/Customer/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/{{Entity}}/Customer.php</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </model_entity_customer>
 
 
         <model_entity_category translate="title description condition" module="modulecreator">
@@ -4309,6 +4705,13 @@
                     </depend>
                     <sort_order>70</sort_order>
                 </product_relation>
+                <customer_relation>
+                    <name>075_customer_relation</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>75</sort_order>
+                </customer_relation>
                 <category_relation>
                     <name>080_category_relation</name>
                     <depend>
@@ -4470,6 +4873,42 @@
             </code>
         </model_resource_entity_product>
 
+        <model_resource_entity_customer translate="title description condition" module="modulecreator">
+            <title>Customer relation resource model</title>
+            <description>Resource model for entity customer relation</description>
+            <condition>Generated for all entities that are related many to many with customers</condition>
+            <scope>entity</scope>
+            <source>app/code/Model/Resource/Entity/Customer/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Resource/{{Entity}}/Customer.php</destination>
+            <depend>
+                <link_customer/>
+            </depend>
+            <code>
+                <top>
+                    <name>010_top</name>
+                    <sort_order>10</sort_order>
+                </top>
+                <not_tree>
+                    <name>020_not_tree</name>
+                    <depend>
+                        <not_is_tree/>
+                    </depend>
+                    <sort_order>20</sort_order>
+                </not_tree>
+                <tree>
+                    <name>030_tree</name>
+                    <depend>
+                        <is_tree/>
+                    </depend>
+                    <sort_order>30</sort_order>
+                </tree>
+                <footer>
+                    <name>040_footer</name>
+                    <sort_order>40</sort_order>
+                </footer>
+            </code>
+        </model_resource_entity_customer>
+
 
         <model_resource_entity_category translate="title description condition" module="modulecreator">
             <title>Category relation resource model</title>
@@ -4524,6 +4963,24 @@
                 </content>
             </code>
         </model_resource_entity_product_collection>
+
+        <model_resource_entity_customer_collection translate="title description condition" module="modulecreator">
+            <title>Customer relation collection resource model</title>
+            <description>Collection resource model for entity customer relation</description>
+            <condition>Generated for all entities that are related many to many with customers</condition>
+            <scope>entity</scope>
+            <source>app/code/Model/Resource/Entity/Customer/Collection/</source>
+            <destination>app/code/{{codepool}}/{{Namespace}}/{{Module}}/Model/Resource/{{Entity}}/Customer/Collection.php</destination>
+            <depend>
+                <link_customer/>
+            </depend>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </model_resource_entity_customer_collection>
 
         <model_resource_entity_category_collection translate="title description condition" module="modulecreator">
             <title>Category relation collection resource model</title>
@@ -4863,6 +5320,14 @@
                     </depend>
                     <sort_order>50</sort_order>
                 </product_relation>
+                <customer_relation>
+                    <name>055_customer_relation</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>55</sort_order>
+                </customer_relation>
                 <category_relation>
                     <name>060_category_relation</name>
                     <scope>entity</scope>
@@ -4907,6 +5372,14 @@
                     </depend>
                     <sort_order>110</sort_order>
                 </product_attribute>
+                <customer_attribute>
+                    <name>115_customer_attribute</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <customer_attribute />
+                    </depend>
+                    <sort_order>115</sort_order>
+                </customer_attribute>
                 <category_attribute>
                     <name>120_category_attribute</name>
                     <scope>entity</scope>
@@ -4959,6 +5432,15 @@
                     </depend>
                     <sort_order>30</sort_order>
                 </relation_product>
+                <relation_customer>
+                    <name>035_relation_customer</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                        <not_is_tree/>
+                    </depend>
+                    <sort_order>35</sort_order>
+                </relation_customer>
                 <relation_category>
                     <name>040_relation_category</name>
                     <scope>entity</scope>
@@ -4990,6 +5472,15 @@
                     </depend>
                     <sort_order>70</sort_order>
                 </relation_product_tree>
+                <relation_customer_tree>
+                    <name>075_relation_customer_tree</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <link_customer/>
+                        <is_tree/>
+                    </depend>
+                    <sort_order>75</sort_order>
+                </relation_customer_tree>
                 <relation_category_tree>
                     <name>080_relation_category_tree</name>
                     <scope>entity</scope>
@@ -5046,6 +5537,26 @@
                 </content>
             </code>
         </product_tree_tab_template>
+
+        <customer_tree_tab_template translate="title description condition" module="modulecreator">
+            <title>Admin template for customer list</title>
+            <description>Admin template used for customer listing in tree behaving entities.</description>
+            <condition>Generated for tree entities related many to many with customers.</condition>
+            <filetype>phtml</filetype>
+            <scope>entity</scope>
+            <depend>
+                <is_tree/>
+                <link_customer/>
+            </depend>
+            <source>app/design/adminhtml/template/namespace_module/customer/edit/tab/entity/</source>
+            <destination>app/design/adminhtml/default/default/template/{{namespace}}_{{module}}/customer/edit/tab/{{entity}}.phtml</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </customer_tree_tab_template>
 
         <category_tree_tab_template translate="title description condition" module="modulecreator">
             <title>Admin template for category edit</title>
@@ -5138,6 +5649,13 @@
                     </depend>
                     <sort_order>20</sort_order>
                 </product_hidden>
+                <customer_hidden>
+                    <name>025_customer_hidden</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>25</sort_order>
+                </customer_hidden>
                 <category_hidden>
                     <name>030_category_hidden</name>
                     <depend>
@@ -5161,6 +5679,13 @@
                     </depend>
                     <sort_order>60</sort_order>
                 </product_relation>
+                <customer_relation>
+                    <name>065_customer_relation</name>
+                    <depend>
+                        <link_customer/>
+                    </depend>
+                    <sort_order>65</sort_order>
+                </customer_relation>
                 <sibling_relations>
                     <name>070_sibling_relations</name>
                     <scope>siblings</scope>
@@ -5364,6 +5889,13 @@
                     </depend>
                     <sort_order>120</sort_order>
                 </relation_product>
+                <relation_customer>
+                    <name>125_relation_customer</name>
+                    <depend>
+                        <show_on_customer/>
+                    </depend>
+                    <sort_order>125</sort_order>
+                </relation_customer>
                 <relation_category>
                     <name>130_relation_category</name>
                     <depend>
@@ -5405,6 +5937,25 @@
             </code>
         </list_on_product>
 
+        <list_on_customer translate="title description condition" module="modulecreator">
+            <title>Entity list on customer page template</title>
+            <description>Template for listing entities on customer view page</description>
+            <condition>Generated for entities that should be listed on the customer page.</condition>
+            <scope>entity</scope>
+            <filetype>phtml</filetype>
+            <depend>
+                <show_on_customer/>
+            </depend>
+            <source>app/design/frontend/template/namespace_module/customer/list/entity/</source>
+            <destination>app/design/frontend/base/default/template/{{namespace}}_{{module}}/customer/list/{{entity}}.phtml</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </list_on_customer>
+
         <list_on_category translate="title description condition" module="modulecreator">
             <title>Entity list on category page template</title>
             <description>Template for listing entities on category view page</description>
@@ -5442,6 +5993,25 @@
                 </content>
             </code>
         </product_list>
+
+        <customer_list translate="title description condition" module="modulecreator">
+            <title>Customer list on entity page template</title>
+            <description>Template used for listing customers on entity page</description>
+            <condition>Generated for entities linked to customers and that show customers on the details page</condition>
+            <scope>entity</scope>
+            <filetype>php</filetype>
+            <depend>
+                <show_customers/>
+            </depend>
+            <source>app/design/frontend/template/namespace_module/entity/customer/list/</source>
+            <destination>app/design/frontend/base/default/template/{{namespace}}_{{module}}/{{entity}}/customer/list.phtml</destination>
+            <code>
+                <content>
+                    <name>010_content</name>
+                    <sort_order>10</sort_order>
+                </content>
+            </code>
+        </customer_list>
 
         <category_list translate="title description condition" module="modulecreator">
             <title>Category list on entity page template</title>
@@ -6007,6 +6577,13 @@
                     </depend>
                     <sort_order>80</sort_order>
                 </product_relation>
+                <customer_relation>
+                    <name>085_customer_relation</name>
+                    <depend>
+                        <link_customer />
+                    </depend>
+                    <sort_order>85</sort_order>
+                </customer_relation>
                 <category_relation>
                     <name>090_category_relation</name>
                     <depend>
@@ -6066,6 +6643,15 @@
                     </depend>
                     <sort_order>160</sort_order>
                 </api_product_related>
+                <api_customer_related>
+                    <name>165_api_customer_related</name>
+                    <scope>entity</scope>
+                    <depend>
+                        <api />
+                        <link_customer />
+                    </depend>
+                    <sort_order>165</sort_order>
+                </api_customer_related>
                 <api_category_related>
                     <name>170_api_category_related</name>
                     <scope>entity</scope>
@@ -6661,7 +7247,7 @@
         <relation_column_renderer translate="title description condition" module="modulecreator">
             <title>Admin column renderer for linked entities</title>
             <description>Block for rendering columns of related entities</description>
-            <condition>Generated if are entities related or at least one entity is in a "many to many" relation with the products or categories.</condition>
+            <condition>Generated if are entities related or at least one entity is in a "many to many" relation with the products, customers or categories.</condition>
             <filetype>php</filetype>
             <depend>
                 <has_relation_column_renderer />

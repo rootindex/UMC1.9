@@ -1,0 +1,46 @@
+    <adminhtml_{{module_entity}}_customer_{{entities}}>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{namespace}}_{{module}}/adminhtml_customer_edit_tab_{{entity}}" name="customer.edit.tab.{{entity}}"/>
+            <block type="adminhtml/widget_grid_serializer" name="{{entity}}_grid_serializer">
+                <reference name="{{entity}}_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>customer.edit.tab.{{entity}}</grid_block_name>
+                        <data_callback>getSelected{{Entities}}</data_callback>
+                        <hidden_input_name>{{entities}}</hidden_input_name>
+                        <reload_param_name>customer_{{entities}}</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_{{module_entity}}_customer_{{entities}}>
+    <adminhtml_{{module_entity}}_customer_{{entities}}grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{namespace}}_{{module}}/adminhtml_customer_edit_tab_{{entity}}" name="customer.edit.tab.{{entity}}"/>
+        </block>
+    </adminhtml_{{module_entity}}_customer_{{entities}}grid>
+    <adminhtml_{{module_entity}}_customers>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_customer" name="{{entity}}.edit.tab.customer"/>
+            <block type="adminhtml/widget_grid_serializer" name="customer_grid_serializer">
+                <reference name="customer_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>{{entity}}.edit.tab.customer</grid_block_name>
+                            <data_callback>getSelectedCustomers</data_callback>
+                            <hidden_input_name>customers</hidden_input_name>
+                            <reload_param_name>{{entity}}_customers</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_{{module_entity}}_customers>
+    <adminhtml_{{module_entity}}_customersgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_customer" name="{{entity}}.edit.tab.customer"/>
+        </block>
+    </adminhtml_{{module_entity}}_customersgrid>

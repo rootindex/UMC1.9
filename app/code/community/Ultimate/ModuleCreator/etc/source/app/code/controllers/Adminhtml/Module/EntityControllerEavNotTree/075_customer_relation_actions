@@ -1,0 +1,32 @@
+
+    /**
+     * get grid of customers action
+     *
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function customersAction()
+    {
+        $this->_init{{Entity}}();
+        $this->loadLayout();
+        $this->getLayout()->getBlock('{{entity}}.edit.tab.customer')
+            ->set{{Entity}}Customers($this->getRequest()->getPost('{{entity}}_customers', null));
+        $this->renderLayout();
+    }
+
+    /**
+     * get grid of customers action
+     *
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function customersgridAction()
+    {
+        $this->_init{{Entity}}();
+        $this->loadLayout();
+        $this->getLayout()->getBlock('{{entity}}.edit.tab.customer')
+            ->set{{Entity}}Customers($this->getRequest()->getPost('{{entity}}_customers', null));
+        $this->renderLayout();
+    }

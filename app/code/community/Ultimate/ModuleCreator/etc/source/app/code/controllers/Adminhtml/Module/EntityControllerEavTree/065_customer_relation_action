@@ -1,0 +1,21 @@
+
+    /**
+     * get the customers grid
+     *
+     * @access public
+     * @return void
+     * {{qwertyuiop}}
+     */
+    public function customersgridAction()
+    {
+        if (!${{entity}} = $this->_init{{Entity}}()) {
+            return;
+        }
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock(
+                '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_customer',
+                '{{entity}}.customer.grid'
+            )
+            ->toHtml()
+        );
+    }

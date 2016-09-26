@@ -1,0 +1,6 @@
+                $customers = $this->getRequest()->getPost('customers', -1);
+                if ($customers != -1) {
+                    ${{entity}}->setProductsData(
+                        Mage::helper('adminhtml/js')->decodeGridSerializedInput($customers)
+                    );
+                }

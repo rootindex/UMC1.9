@@ -33,7 +33,7 @@
      * Save  product - {{entityLabel}} relations
      *
      * @access public
-     * @param Mage_Catalog_Model_Product $prooduct
+     * @param Mage_Catalog_Model_Product $product
      * @param array $data
      * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Product
      * {{qwertyuiop}}

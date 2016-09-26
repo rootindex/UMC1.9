@@ -1,0 +1,55 @@
+    <?php if (($block = $this->getLayout()->getBlock('{{entity}}.customer.grid')) && ($_gridJsObject=$block->getJsObjectName())): ?>
+        var {{entity}}Customers = $H(<?php echo $this->getCustomersJson() ?>);
+        $('in_{{entity}}_customers').value = {{entity}}Customers.toQueryString();
+        function register{{Entity}}Customer(grid, element, checked) {
+        if (checked) {
+            if (element.positionElement) {
+                element.positionElement.disabled = false;
+                {{entity}}Customers.set(element.value, element.positionElement.value);
+            }
+        } else {
+            if (element.positionElement) {
+                element.positionElement.disabled = true;
+            }
+            {{entity}}Customers.unset(element.value);
+        }
+        $('in_{{entity}}_customers').value = {{entity}}Customers.toQueryString();
+            grid.reloadParams = {'selected_customers[]':{{entity}}Customers.keys()};
+        }
+        function {{entity}}CustomerRowClick(grid, event) {
+            var trElement = Event.findElement(event, 'tr');
+            var isInput   = Event.element(event).tagName == 'INPUT';
+            if (trElement) {
+                var checkbox = Element.getElementsBySelector(trElement, 'input');
+                if (checkbox[0]) {
+                    var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                    <?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
+                }
+            }
+        }
+        function positionChange(event) {
+            var element = Event.element(event);
+            if (element && element.checkboxElement && element.checkboxElement.checked) {
+            {{entity}}Customers.set(element.checkboxElement.value, element.value);
+                $('in_{{entity}}_customers').value = {{entity}}Customers.toQueryString();
+            }
+        }
+        var tabIndex = 1000;
+        function {{entity}}CustomerRowInit(grid, row) {
+            var checkbox = $(row).getElementsByClassName('checkbox')[0];
+            var position = $(row).getElementsByClassName('input-text')[0];
+            if (checkbox && position) {
+                checkbox.positionElement = position;
+                position.checkboxElement = checkbox;
+                position.disabled = !checkbox.checked;
+                position.tabIndex = tabIndex++;
+                Event.observe(position, 'keyup', positionChange);
+            }
+        }
+        <?php echo $_gridJsObject ?>.rowClickCallback = {{entity}}CustomerRowClick;
+        <?php echo $_gridJsObject ?>.initRowCallback = {{entity}}CustomerRowInit;
+        <?php echo $_gridJsObject ?>.checkboxCheckCallback = register{{Entity}}Customer;
+        <?php echo $_gridJsObject ?>.rows.each(function(row) {
+            {{entity}}CustomerRowInit(<?php echo $_gridJsObject ?>, row)
+        });
+    <?php endif; ?>

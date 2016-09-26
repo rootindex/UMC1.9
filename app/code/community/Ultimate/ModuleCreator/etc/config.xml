@@ -130,6 +130,11 @@ http://opensource.org/licenses/mit-license.php
                 <category_attribute_scope>1</category_attribute_scope>
                 <product_attribute_group>General</product_attribute_group>
                 <category_attribute_group>General Information</category_attribute_group>
+                <link_customer>0</link_customer>
+                <show_on_customer>1</show_on_customer>
+                <show_customers>1</show_customers>
+                <customer_attribute>0</customer_attribute>
+                <customer_attribute_scope>1</customer_attribute_scope>
             </entity>
             <attribute>
                 <type>text</type>

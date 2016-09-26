@@ -567,6 +567,75 @@
                         </category_attribute_group>
                     </fields>
                 </category>
+                <customer translate="label description" module="modulecreator">
+                    <label>Customers</label>
+                    <description>Entity links with catalog customers</description>
+                    <collapsable>1</collapsable>
+                    <fields>
+                        <link_customer translate="label tooltip" module="modulecreator">
+                            <label>Link "many to many" with customer</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>10</position>
+                            <class>link-customer</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new tab will be added to the customer add/edit form, with a list of your entities. Something similar to the 'Products' tab.<br />Also on your entity add/edit page a similar tab listing all the customers will be added.]]></tooltip>
+                        </link_customer>
+                        <show_on_customer translate="label tooltip" module="modulecreator">
+                            <label>Show associated entities on customer page</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>20</position>
+                            <class>use-link-customer</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new section with the list of your entities related to a specific customer will be added to the customer view page.]]></tooltip>
+                        </show_on_customer>
+                        <show_customers translate="label tooltip additional" module="modulecreator">
+                            <label>Show associated customers on entity page</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>30</position>
+                            <class>use-frontend use-create-view use-link-customer</class>
+                            <system>1</system>
+                            <tooltip><![CDATA[If this is set to 'Yes', a new section with the list of your customers related to one entity will be added to the entity view page.]]></tooltip>
+                            <additional><![CDATA[<span class="label label-info">Info:</span> This field is available only if 'Link "many to many" with customers' is set to 'Yes'.]]></additional>
+                        </show_customers>
+                        <customer_attribute translate="label tooltip" module="modulecreator">
+                            <label>Make entity a customer attribute</label>
+                            <type>select</type>
+                            <source>adminhtml/system_config_source_yesno</source>
+                            <position>40</position>
+                            <class>customer-attribute</class>
+                            <system>1</system>
+                            <tooltip>This will add a new dropdown attribute to the customer where the options will be your entity instances.</tooltip>
+                        </customer_attribute>
+                        <customer_attribute_code translate="label" module="modulecreator">
+                            <label>Customer attribute code</label>
+                            <type>text</type>
+                            <required>1</required>
+                            <position>50</position>
+                            <class>use-customer-attribute validate-code</class>
+                            <tooltip>Fill in the dropdown attribute code.</tooltip>
+                        </customer_attribute_code>
+                        <customer_attribute_scope translate="label" module="modulecreator">
+                            <label>Customer attribute scope</label>
+                            <type>select</type>
+                            <source>modulecreator/source_attribute_scope</source>
+                            <position>60</position>
+                            <class>use-customer-attribute</class>
+                            <system>1</system>
+                            <tooltip>Select the customer attribute scope.</tooltip>
+                        </customer_attribute_scope>
+                        <customer_attribute_group translate="label tooltip" module="modulecreator">
+                            <label>Customer attribute group</label>
+                            <type>text</type>
+                            <position>60</position>
+                            <class>use-customer-attribute</class>
+                            <system>1</system>
+                            <tooltip>The name of the attribute group where the attribute will be added. If you leave it empty the attribute will not be added to the customer attribute set. If the group does not exist it will be created.</tooltip>
+                        </customer_attribute_group>
+                    </fields>
+                </customer>
             </fieldsets>
         </entity>
         <attribute>
@@ -786,6 +855,12 @@
             <category_attribute />
             <category_attribute_code />
             <category_attribute_scope />
+            <link_customer />
+            <show_on_customer />
+            <show_customers />
+            <customer_attribute />
+            <customer_attribute_code />
+            <customer_attribute_scope />
             <allow_comment />
             <manage_comment />
             <search />
@@ -793,6 +868,7 @@
             <rest />
             <product_attribute_group />
             <category_attribute_group />
+            <customer_attribute_group />
         </umc_entity>
     </xml_attributes>
     <types>

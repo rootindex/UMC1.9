@@ -1,0 +1,11 @@
+<?php
+{{License}}
+/**
+ * {{EntityLabel}} - customer controller
+ * @category    {{Namespace}}
+ * @package     {{Namespace}}_{{Module}}
+ * {{qwertyuiopp}}
+ */
+require_once ("Mage/Adminhtml/controllers/CustomerController.php");
+class {{Namespace}}_{{Module}}_Adminhtml_{{ModuleFolder}}_CustomerController extends Mage_Adminhtml_CustomerController
+{

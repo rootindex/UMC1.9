@@ -1,0 +1,3 @@
+        foreach ($result->customers as $key => $value) {
+            $result->customers[$key] = array('key' => $key, 'value' => $value);
+        }

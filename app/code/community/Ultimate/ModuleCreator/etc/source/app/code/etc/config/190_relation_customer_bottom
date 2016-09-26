@@ -1,0 +1,5 @@
+                    <{{namespace}}_{{module_entity}}_customer>
+                        <type>singleton</type>
+                        <class>{{namespace}}_{{module}}/adminhtml_observer</class>
+                        <method>saveCustomer{{Entity}}Data</method>
+                    </{{namespace}}_{{module_entity}}_customer>

@@ -31,12 +31,14 @@
  * @method Ultimate_ModuleCreator_Model_Entity setHasMultipleSelect()
  * @method bool getCreateFrontend()
  * @method bool getLinkProduct()
+ * @method bool getLinkCustomer()
  * @method bool getLinkCategory()
  * @method bool getIsTree()
  * @method string getType()
  * @method string getLabelSingular()
  * @method string getLabelPlural()
  * @method string getProductAttributeCode()
+ * @method string getCustomerAttributeCode()
  * @method string getCategoryAttributeCode()
  * @method int getPosition()
  * @method string getUrlRewriteList()
@@ -44,10 +46,13 @@
  * @method bool getStore()
  * @method bool getShowCategory()
  * @method int getProductAttributeScope()
+ * @method int getCustomerAttributeScope()
  * @method int getCategoryAttributeScope()
  * @method bool getProductAttribute();
+ * @method bool getCustomerAttribute();
  * @method bool getCategoryAttribute()
  * @method string getProductAttributeGroup()
+ * @method string getCustomerAttributeGroup()
  * @method string getCategoryAttributeGroup()
  * @method int getListMenu()
  * @method bool getRest()
@@ -581,6 +586,32 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         return $this->getLinkProduct() && $this->getData('show_on_product');
     }
 
+	/**
+	 * check if customers are listed in the entity view page
+	 *
+	 * @access public
+	 * @return bool
+	 * @author Douglas Ianitsky <ianitsky@gmail.com>
+	 */
+	public function getShowCustomers()
+	{
+		return $this->getLinkCustomer() &&
+		$this->getCreateFrontend() &&
+		$this->getData('show_customers');
+	}
+
+	/**
+	 * check if entity list is shown on customer page
+	 *
+	 * @access public
+	 * @return bool
+	 * @author Douglas Ianitsky <ianitsky@gmail.com>
+	 */
+	public function getShowOnCustomer()
+	{
+		return $this->getLinkCustomer() && $this->getData('show_on_customer');
+	}
+
     /**
      * check if entity list is shown on category page
      *
@@ -716,6 +747,18 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         return $this->getCreateFrontend();
     }
 
+	/**
+	 * check if entity is linked to core entities (product, category and customer)
+	 *
+	 * @access public
+	 * @return bool
+	 * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+	 */
+	public function getLinkCore()
+	{
+		return $this->getLinkProduct() || $this->getLinkCategory() || $this->getLinkCustomer();;
+	}
+
     /**
      * check if entity is linked to core entities (product, category)
      *
@@ -723,10 +766,22 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
      * @return bool
      * @author Marius Strajeru <ultimate.module.creator@gmail.com>
      */
-    public function getLinkCore()
+    public function getLinkCoreCatalog()
     {
         return $this->getLinkProduct() || $this->getLinkCategory();
     }
+
+	/**
+	 * check if entity is linked to core entity customer
+	 *
+	 * @access public
+	 * @return bool
+	 * @author Douglas Ianitsky <ianitsky@gmail.com>
+	 */
+	public function getLinkCoreCustomer()
+	{
+		return $this->getLinkCustomer();
+	}
 
     /**
      * get entity placeholders
@@ -796,10 +851,13 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $this->_placeholders['{{entityEditLayoutLeft}}']        = $this->getEditLayoutLeft();
             $this->_placeholders['{{entityLayoutAdditional}}']      = $this->getEditLayoutAdditional();
             $this->_placeholders['{{productAttributeCode}}']        = $this->getProductAttributeCode();
+			$this->_placeholders['{{customerAttributeCode}}']       = $this->getCustomerAttributeCode();
             $this->_placeholders['{{categoryAttributeCode}}']       = $this->getCategoryAttributeCode();
             $this->_placeholders['{{entityProductAttributeScope}}'] = $this->getProductAttributeScopeLabel();
+			$this->_placeholders['{{entityCustomerAttributeScope}}']= $this->getCustomerAttributeScopeLabel();
             $this->_placeholders['{{entityCategoryAttributeScope}}']= $this->getCategoryAttributeScopeLabel();
             $this->_placeholders['{{productAttributeGroup}}']       = $this->getProductAttributeGroupLabel();
+			$this->_placeholders['{{customerAttributeGroup}}']      = $this->getCustomerAttributeGroupLabel();
             $this->_placeholders['{{categoryAttributeGroup}}']      = $this->getCategoryAttributeGroupLabel();
             $this->_placeholders['{{beforeSaveParam}}']             = $this->getBeforeSaveParam();
             $this->_placeholders['{{EntityAttributeSetId}}']        = $this->getEntityAttributeSetId();
@@ -1006,6 +1064,58 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         return $text;
     }
 
+	/**
+	 * get xml for add customer event
+	 *
+	 * @access public
+	 * @return string
+	 * @author Douglas Ianitsky <ianitsky@gmail.com>
+	 */
+	public function getAddBlockToCustomerEvent()
+	{
+		$text = '';
+		if ($this->getLinkCustomer()) {
+			$ns     = $this->getNamespace(true);
+			$eol    = $this->getEol();
+			$text   = $this->getPadding(5).'<'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.
+				$this->getNameSingular(true).'>'.$eol;
+			$text  .= $this->getPadding(6).'<type>singleton</type>'.$eol;
+			$text  .= $this->getPadding(6).'<class>'.$ns.'_'.$this->getModule()->getLowerModuleName().
+				'/adminhtml_observer</class>'.$eol;
+			$text  .= $this->getPadding(6).'<method>add'.ucfirst(strtolower($this->getNameSingular())).
+				'Block</method>'.$eol;
+			$text  .= $this->getPadding(5).'</'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.
+				$this->getNameSingular(true).'>'.$eol;
+		}
+		return $text;
+	}
+
+	/**
+	 * get xml for add customer save after event
+	 *
+	 * @access public
+	 * @return string
+	 * @author Marius Strajeru <ultimate.module.creator@gmail.com>
+	 */
+	public function getCustomerSaveAfterEvent()
+	{
+		$text = '';
+		if ($this->getLinkCustomer()) {
+			$ns     = strtolower($this->getModule()->getNamespace());
+			$eol    = $this->getEol();
+			$text   = $this->getPadding(5).'<'.$ns.'_'.$this->getModule()->getLowerModuleName().'_'.
+				$this->getNameSingular(true).'>'.$eol;
+			$text  .= $this->getPadding(6).'<type>singleton</type>'.$eol;
+			$text  .= $this->getPadding(6).'<class>'.$ns.'_'.$this->getModule()->getLowerModuleName().
+				'/adminhtml_observer</class>'.$eol;
+			$text  .= $this->getPadding(6).'<method>save'.ucfirst(strtolower($this->getNameSingular())).
+				'Data</method>'.$eol;
+			$text  .= $this->getPadding(5).'</'.$ns.'_'.$this->getModule()->getLowerModuleName().
+				'_'.$this->getNameSingular(true).'>'.$eol;
+		}
+		return $text;
+	}
+
     /**
      * get xml for add can load ext js
      *
@@ -1162,6 +1272,9 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         if ($this->getShowOnProduct()) {
             return true;
         }
+		if ($this->getShowOnCustomer()) {
+			return true;
+		}
         if ($this->getShowOnCategory()) {
             return true;
         }
@@ -1448,6 +1561,13 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
                 $namespace.'_'.$module.'/'.$entityName.'/catalog/product/list.phtml" />'.
                 $eol.$this->getPadding(2);
         }
+		if ($this->getShowCustomers()) {
+			$content .= $this->getPadding().'<block type="'.
+				$namespace.'_'.$module.'/'.$entityName.'_catalog_customer_list" name="'.
+				$entityName.'.info.customers" as="'.$entityName.'_customers" template="'.
+				$namespace.'_'.$module.'/'.$entityName.'/customer/list.phtml" />'.
+				$eol.$this->getPadding(2);
+		}
         if ($this->getShowCategory()) {
             $content .= $this->getPadding().'<block type="'.
                 $namespace.'_'.$module.'/'.$entityName.'_catalog_category_list" name="'.
@@ -1818,6 +1938,9 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         if ($this->getLinkProduct()) {
             $string .= $this->getApiRelationsSection('Product', 'product');
         }
+		if ($this->getLinkCustomer()) {
+			$string .= $this->getApiRelationsSection('Customer', 'customer');
+		}
         if ($this->getLinkCategory()) {
             $string .= $this->getApiRelationsSection('Category', 'category');
         }
@@ -1883,6 +2006,10 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $string .= $this->getApiFaultsSection('product', 'Product', $code);
             $code++;
         }
+		if ($this->getLinkCustomer()) {
+			$string .= $this->getApiFaultsSection('customer', 'Customer', $code);
+			$code++;
+		}
         if ($this->getLinkCategory()) {
             $string .= $this->getApiFaultsSection('category', 'Category', $code);
             $code++;
@@ -2056,6 +2183,9 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         if ($this->getLinkProduct()) {
             $content .= $this->getWsdlRelationTypesSection('Product', 'product', $wsi);
         }
+		if ($this->getLinkCustomer()) {
+			$content .= $this->getWsdlRelationTypesSection('Customer', 'customer', $wsi);
+		}
         if ($this->getLinkCategory()) {
             $content .= $this->getWsdlRelationTypesSection('Category', 'category', $wsi);
         }
@@ -2161,6 +2291,10 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $content .= $this->getWsdlPortTypeRelationSection('Product', 'product', $wsi);
         }
 
+		if ($this->getLinkCustomer()) {
+			$content .= $this->getWsdlPortTypeRelationSection('Customer', 'customer', $wsi);
+		}
+
         if ($this->getLinkCategory()) {
             $content .= $this->getWsdlPortTypeRelationSection('Category', 'category', $wsi);
         }
@@ -2244,6 +2378,10 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $content .= $this->getWsdlRelationBindingSection('AssignProduct');
             $content .= $this->getWsdlRelationBindingSection('UnassignProduct');
         }
+		if ($this->getLinkCustomer()) {
+			$content .= $this->getWsdlRelationBindingSection('AssignCustomer');
+			$content .= $this->getWsdlRelationBindingSection('UnassignCustomer');
+		}
         if ($this->getLinkCategory()) {
             $content .= $this->getWsdlRelationBindingSection('AssignCategory');
             $content .= $this->getWsdlRelationBindingSection('UnassignCategory');
@@ -2310,6 +2448,10 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $content .= $this->getWsiRelationBindingSection('AssignProduct');
             $content .= $this->getWsiRelationBindingSection('UnassignProduct');
         }
+		if ($this->getLinkCustomer()) {
+			$content .= $this->getWsiRelationBindingSection('AssignCustomer');
+			$content .= $this->getWsiRelationBindingSection('UnassignCustomer');
+		}
         if ($this->getLinkCategory()) {
             $content .= $this->getWsiRelationBindingSection('AssignCategory');
             $content .= $this->getWsiRelationBindingSection('UnassignCategory');
@@ -2443,6 +2585,10 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $content .= $this->getWsiRelationParamTypesSection('Product', 'product');
         }
 
+		if ($this->getLinkCustomer()) {
+			$content .= $this->getWsiRelationParamTypesSection('Customer', 'customer');
+		}
+
         if ($this->getLinkCategory()) {
             $content .= $this->getWsiRelationParamTypesSection('Category', 'category');
         }
@@ -2506,6 +2652,11 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $content .= $this->getWsiRelationMessagesSection('AssignProduct');
             $content .= $this->getWsiRelationMessagesSection('UnassignProduct');
         }
+
+		if ($this->getLinkCustomer()) {
+			$content .= $this->getWsiRelationMessagesSection('AssignCustomer');
+			$content .= $this->getWsiRelationMessagesSection('UnassignCustomer');
+		}
 
         if ($this->getLinkCategory()) {
             $content .= $this->getWsiRelationMessagesSection('AssignCategory');
@@ -2593,6 +2744,10 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         if ($this->getLinkProduct()) {
             $content .= $this->getWsdlMessagesSection('Product', 'product');
         }
+
+		if ($this->getLinkCustomer()) {
+			$content .= $this->getWsdlMessagesSection('Customer', 'customer');
+		}
 
         if ($this->getLinkCategory()) {
             $content .= $this->getWsdlMessagesSection('Category', 'category');
@@ -2801,6 +2956,18 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         return $this->_getScopeLabel($this->getProductAttributeScope());
     }
 
+	/**
+	 * get the label for customer attribute scope
+	 *
+	 * @access public
+	 * @return string
+	 * @author Douglas ianitsky <ianitsky@gmail.com>
+	 */
+	public function getCustomerAttributeScopeLabel()
+	{
+		return $this->_getScopeLabel($this->getCustomerAttributeScope());
+	}
+
     /**
      * get the label for category attribute scope
      *
@@ -2845,7 +3012,7 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
      */
     public function getIsAttribute()
     {
-        return $this->getProductAttribute() || $this->getCategoryAttribute();
+        return $this->getProductAttribute() || $this->getCategoryAttribute() || $this->getCustomerAttribute();
     }
 
     /**
@@ -2888,6 +3055,23 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
         }
         return '';
     }
+
+	/**
+	 * get customer attribute group
+	 *
+	 * @access public
+	 * @return string
+	 * @author Douglas Ianitsky <ianitsky@gmail.com>
+	 */
+	public function getCustomerAttributeGroupLabel()
+	{
+		if ($this->getCustomerAttributeGroup()) {
+			return "'group'             => '".$this->getCustomerAttributeGroup()."',".
+			$this->getEol().$this->getPadding(2);
+		}
+		return '';
+	}
+
     /**
      * get category attribute group
      *

@@ -1,0 +1,47 @@
+
+    /**
+     * get customer relation model
+     *
+     * @access public
+     * @return {{Namespace}}_{{Module}}_Model_{{Entity}}_Customer
+     * {{qwertyuiop}}
+     */
+    public function getCustomerInstance()
+    {
+        if (!$this->_customerInstance) {
+            $this->_customerInstance = Mage::getSingleton('{{namespace}}_{{module}}/{{entity}}_customer');
+        }
+        return $this->_customerInstance;
+    }
+
+    /**
+     * get selected customers array
+     *
+     * @access public
+     * @return array
+     * {{qwertyuiop}}
+     */
+    public function getSelectedCustomers()
+    {
+        if (!$this->hasSelectedCustomers()) {
+            $customers = array();
+            foreach ($this->getSelectedCustomersCollection() as $customer) {
+                $customers[] = $customer;
+            }
+            $this->setSelectedCustomers($customers);
+        }
+        return $this->getData('selected_customers');
+    }
+
+    /**
+     * Retrieve collection selected customers
+     *
+     * @access public
+     * @return {{Namespace}}_{{Module}}_Resource_{{Entity}}_Customer_Collection
+     * {{qwertyuiop}}
+     */
+    public function getSelectedCustomersCollection()
+    {
+        $collection = $this->getCustomerInstance()->getCustomerCollection($this);
+        return $collection;
+    }

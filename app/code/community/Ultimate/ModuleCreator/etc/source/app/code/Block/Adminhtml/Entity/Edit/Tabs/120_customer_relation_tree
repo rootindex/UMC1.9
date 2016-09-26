@@ -1,0 +1,11 @@
+        $this->addTab(
+            'customers',
+            array(
+                'label'   => Mage::helper('{{namespace}}_{{module}}')->__('Associated Customers'),
+                'content' => $this->getLayout()->createBlock(
+                    '{{namespace}}_{{module}}/adminhtml_{{entity}}_edit_tab_customer',
+                    '{{entity}}.customer.grid'
+                )
+                ->toHtml(),
+            )
+        );

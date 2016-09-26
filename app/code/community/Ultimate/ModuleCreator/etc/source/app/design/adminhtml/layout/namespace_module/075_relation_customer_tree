@@ -1,0 +1,5 @@
+    <adminhtml_{{module_entity}}_customer_{{entities}}>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="{{namespace}}_{{module}}/adminhtml_customer_edit_tab_{{entity}}" name="catalog.customer.edit.tab.{{entities}}"/>
+        </block>
+    </adminhtml_{{module_entity}}_customer_{{entities}}>

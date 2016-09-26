@@ -1,15 +1,9 @@
 diff a/app/code/community/Ultimate/ModuleCreator/Model/Entity.php b/app/code/community/Ultimate/ModuleCreator/Model/Entity.php	(rejected hunks)
-@@ -742,8 +742,13 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
-             $this->_placeholders = array();
-             $this->_placeholders['{{entity_default_config}}']       = $this->getDefaultConfig();
-             $this->_placeholders['{{entity}}']                      = $this->getNameSingular(true);
-+			$this->_placeholders['{{entityTable}}']                 = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? $this->getNameSingular(true) : 'entity';
-             $this->_placeholders['{{Entity}}']                      = ucfirst($this->getNameSingular(true));
-             $this->_placeholders['{{ENTITY}}']                      = strtoupper($this->getNameSingular());
-+			$this->_placeholders['{{Module_Entity}}']               = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? ucfirst(strtolower($this->getModule()->getModuleName())) . '_' . ucfirst(strtolower($this->getNameSingular(true))) : ucfirst($this->getNameSingular(true));
-+			$this->_placeholders['{{module_entity}}']               = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? strtolower($this->getModule()->getModuleName()) . '_' . strtolower($this->getNameSingular(true)) : strtolower($this->getNameSingular(true));
-+			$this->_placeholders['{{Module/Entity}}']               = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? ucfirst(strtolower($this->getModule()->getModuleName())) . '/' . ucfirst(strtolower($this->getNameSingular(true))) : ucfirst($this->getNameSingular(true));
-+			//$this->_placeholders['{{module/entity}}']             = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? strtolower($this->getModule()->getModuleName()) . '/' . strtolower($this->getNameSingular(true)) : strtolower($this->getNameSingular(true));
+@@ -748,7 +803,6 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
+ 			$this->_placeholders['{{Module_Entity}}']               = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? ucfirst(strtolower($this->getModule()->getModuleName())) . '_' . ucfirst(strtolower($this->getNameSingular(true))) : ucfirst($this->getNameSingular(true));
+ 			$this->_placeholders['{{module_entity}}']               = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? strtolower($this->getModule()->getModuleName()) . '_' . strtolower($this->getNameSingular(true)) : strtolower($this->getNameSingular(true));
+ 			$this->_placeholders['{{Module/Entity}}']               = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? ucfirst(strtolower($this->getModule()->getModuleName())) . '/' . ucfirst(strtolower($this->getNameSingular(true))) : ucfirst($this->getNameSingular(true));
+-			//$this->_placeholders['{{module/entity}}']             = (strtolower($this->getNameSingular(true)) != strtolower($this->getModule()->getModuleName())) ? strtolower($this->getModule()->getModuleName()) . '/' . strtolower($this->getNameSingular(true)) : strtolower($this->getNameSingular(true));
              $this->_placeholders['{{EntityLabel}}']                 = ucfirst($this->getLabelSingular());
              $this->_placeholders['{{entityLabel}}']                 = strtolower($this->getLabelSingular());
              $this->_placeholders['{{EntitiesLabel}}']               = ucfirst($this->getLabelPlural());

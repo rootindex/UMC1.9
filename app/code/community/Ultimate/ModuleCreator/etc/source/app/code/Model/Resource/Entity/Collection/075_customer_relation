@@ -1,0 +1,25 @@
+
+    /**
+     * add the customer filter to collection
+     *
+     * @access public
+     * @param mixed (Mage_Catalog_Model_Customer|int) $customer
+     * @return {{Namespace}}_{{Module}}_Model_Resource_{{Entity}}_Collection
+     * {{qwertyuiop}}
+     */
+    public function addCustomerFilter($customer)
+    {
+        if (!$customer instanceof Mage_Customer_Model_Customer) {
+					$customer = Mage::getCollection('customer')->load($customer);
+				}
+        if (!isset($this->_joinedFields['customer'])) {
+            $this->getSelect()->join(
+                array('related_customer' => $this->getTable('{{namespace}}_{{module}}/{{entityTable}}_customer')),
+                'related_customer.{{entity}}_id = {{entityTableAlias}}.entity_id',
+                array('position')
+            );
+            $this->getSelect()->where('related_customer.customer_id = ?', $customer->getId());
+            $this->_joinedFields['customer'] = true;
+        }
+        return $this;
+    }

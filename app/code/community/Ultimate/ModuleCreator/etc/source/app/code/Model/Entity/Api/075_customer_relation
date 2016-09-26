@@ -1,0 +1,58 @@
+    /**
+     * Assign customer to {{entityLabel}}
+     *
+     * @access public
+     * @param int ${{entity}}Id
+     * @param int $customerId
+     * @param int $position
+     * @return boolean
+     * {{qwertyuiop}}
+     */
+    public function assignCustomer(${{entity}}Id, $customerId, $position = null)
+    {
+        ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
+        $positions    = array();
+        $customers     = ${{entity}}->getSelectedCustomers();
+        foreach ($customers as $customer) {
+            $positions[$customer->getId()] = array('position'=>$customer->getPosition());
+        }
+        $customer = Mage::getModel('catalog/customer')->load($customerId);
+        if (!$customer->getId()) {
+            $this->_fault('customer_not_exists');
+        }
+        $positions[$customerId]['position'] = $position;
+        ${{entity}}->setCustomersData($positions);
+        try {
+            ${{entity}}->save();
+        } catch (Mage_Core_Exception $e) {
+            $this->_fault('data_invalid', $e->getMessage());
+        }
+        return true;
+    }
+
+    /**
+     * remove customer from {{entityLabel}}
+     *
+     * @access public
+     * @param int ${{entity}}Id
+     * @param int $customerId
+     * @return boolean
+     * {{qwertyuiop}}
+     */
+    public function unassignCustomer(${{entity}}Id, $customerId)
+    {
+        ${{entity}} = $this->_init{{Entity}}(${{entity}}Id);
+        $positions    = array();
+        $customers     = ${{entity}}->getSelectedCustomers();
+        foreach ($customers as $customer) {
+            $positions[$customer->getId()] = array('position'=>$customer->getPosition());
+        }
+        unset($positions[$customerId]);
+        ${{entity}}->setCustomersData($positions);
+        try {
+            ${{entity}}->save();
+        } catch (Mage_Core_Exception $e) {
+            $this->_fault('data_invalid', $e->getMessage());
+        }
+        return true;
+    }
