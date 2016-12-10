@@ -54,9 +54,9 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_{{Entity}}_Edit_Tab_Customer exte
 			->join(array('website1' => 'core_website'), 'website1.website_id =e.website_id', array('website' => 'name', 'website_id' => 'website_id'));
 
 		if ($this->get{{Entity}}()->getId()) {
-			$constraint = '{{table}}.{{entity}}_id='.$this->get{{Entity}}()->getId();
+			$constraint = '{{table}}.entity_id='.$this->get{{Entity}}()->getId();
 		} else {
-			$constraint = '{{table}}.{{entity}}_id=0';
+			$constraint = '{{table}}.entity_id=0';
 		}
 		$collection->joinField(
 			'position',

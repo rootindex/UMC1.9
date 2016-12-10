@@ -846,6 +846,10 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $this->_placeholders['{{RelationsResourceTablesDeclare}}'] = $this->getResourceRelationsTablesDeclare();
             $this->_placeholders['{{adminIndexContent}}']           = $this->getAdminIndexLayoutContent();
             $this->_placeholders['{{EntityParentModel}}']           = $this->getEntityParentModel();
+            $this->_placeholders['{{Module_Entity}}']               = $this->getModuleEntity();
+            $this->_placeholders['{{module_entity}}']               = strtolower($this->getModuleEntity());
+            $this->_placeholders['{{table}}']                       = $this->getTable();
+            $this->_placeholders['{{entityTable}}']                 = $this->getEntityTable();
             $this->_placeholders['{{entityTableAlias}}']            = $this->getEntityTableAlias();
             $this->_placeholders['{{additionalPrepareCollection}}'] = $this->getAdditionalPrepareCollection();
             $this->_placeholders['{{entityEditLayoutLeft}}']        = $this->getEditLayoutLeft();
@@ -938,6 +942,8 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
             $this->_placeholdersAsSibling['{{siblingNameAttribute}}']           = $this->getNameAttributeCode();
             $this->_placeholdersAsSibling['{{siblingAdditionalPrepareCollection}}']
                 = $this->getAdditionalPrepareCollection();
+            $this->_placeholdersAsSibling['{{siblingTable}}']                   = $this->getTable();
+            $this->_placeholdersAsSibling['{{siblingEntityTable}}']             = $this->getEntityTable();
             $this->_placeholdersAsSibling['{{siblingTableAlias}}']              = $this->getEntityTableAlias();
             $this->_placeholdersAsSibling['{{siblingFilterMethod}}']            = $this->getFilterMethod();
             $this->_placeholdersAsSibling['{{siblingAllAttributesToCollection}}']
@@ -2894,6 +2900,42 @@ class Ultimate_ModuleCreator_Model_Entity extends Ultimate_ModuleCreator_Model_A
     public function getEntityParentModel()
     {
         return $this->getTypeInstance()->getEntityParentModel();
+    }
+
+    /**
+     * get module entity
+     *
+     * @access public
+     * @return mixed
+     * @author Douglas Ianitsky <ianitsky@gmail.com>
+     */
+    public function getModuleEntity()
+    {
+        return $this->getTypeInstance()->getModuleEntity();
+    }
+
+    /**
+     * get table
+     *
+     * @access public
+     * @return mixed
+     * @author Douglas Ianitsky <ianitsky@gmail.com>
+     */
+    public function getTable()
+    {
+        return $this->getTypeInstance()->getTable();
+    }
+
+    /**
+     * get entity table
+     *
+     * @access public
+     * @return mixed
+     * @author Douglas Ianitsky <ianitsky@gmail.com>
+     */
+    public function getEntityTable()
+    {
+        return $this->getTypeInstance()->getEntityTable();
     }
 
     /**

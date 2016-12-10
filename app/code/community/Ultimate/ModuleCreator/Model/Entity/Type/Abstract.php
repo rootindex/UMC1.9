@@ -315,6 +315,61 @@ abstract class Ultimate_ModuleCreator_Model_Entity_Type_Abstract extends Ultimat
     }
 
     /**
+     * get module entity
+     *
+     * @access public
+     * @return mixed
+     * @author Douglas Ianitsky <ianitsky@gmail.com>
+     */
+    public function getModuleEntity()
+    {
+        $entity     = $this->getEntity()->getNameSingular(true);
+        $module     = $this->getModule()->getModuleName();
+
+        $module_entity = $module;
+
+        if ($module != ucfirst($entity)) {
+            $module_entity .= '_' . ucfirst($entity);
+        }
+
+        return $module_entity;
+    }
+
+    /**
+     * get table
+     *
+     * @access public
+     * @return mixed
+     * @author Douglas Ianitsky <ianitsky@gmail.com>
+     */
+    public function getTable()
+    {
+        $entity     = $this->getEntityTable();
+        $module     = $this->getLowerModuleName();
+        $namespace  = $this->getNamespace(true);
+
+        return $namespace . '_' . $module . '_' . $entity;
+    }
+
+    /**
+     * get entity table
+     *
+     * @access public
+     * @return mixed
+     * @author Douglas Ianitsky <ianitsky@gmail.com>
+     */
+    public function getEntityTable()
+    {
+        $entity     = $this->getEntity()->getNameSingular(true);
+        $module     = $this->getLowerModuleName();
+        if ($entity != $module)
+        {
+            return $entity;
+        }
+        return 'entity';
+    }
+
+    /**
      * get entity table alias
      *
      * @access public

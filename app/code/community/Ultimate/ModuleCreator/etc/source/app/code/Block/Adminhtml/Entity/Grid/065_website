@@ -1,0 +1,8 @@
+        $this->addColumn('website_id', array(
+            'header'    => Mage::helper('{{namespace}}_{{module}}')->__('Website'),
+            'align'     => 'center',
+            'width'     => '80px',
+            'type'      => 'options',
+            'options'   => Mage::getSingleton('adminhtml/system_store')->getWebsiteOptionHash(true),
+            'index'     => 'website_id',
+        ));

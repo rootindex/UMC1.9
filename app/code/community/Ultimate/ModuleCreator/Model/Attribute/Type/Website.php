@@ -29,7 +29,7 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Website extends Ultimate_Modul
      *
      * @var string
      */
-    protected $_type        = 'website';
+    protected $_type        = 'website_id';
 
     /**
      * sql column ddl size
@@ -46,6 +46,13 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Website extends Ultimate_Modul
     protected $_setupInput 	= 'select';
 
     /**
+     * eav setup type
+     *
+     * @var string
+     */
+    protected $_setupType       = 'int';
+
+    /**
      * get admin column options
      *
      * @access public
@@ -56,7 +63,13 @@ class Ultimate_ModuleCreator_Model_Attribute_Type_Website extends Ultimate_Modul
     {
         $options  = $this->getEol();
         $options .= $this->getPadding(4);
-        $options .= "'type'=> 'website',".$this->getEol();
+        $options .= "'align'=> 'center',".$this->getEol();
+        $options .= $this->getPadding(4);
+        $options .= "'width'=> '80px',".$this->getEol();
+        $options .= $this->getPadding(4);
+        $options .= "'type'=> 'options',".$this->getEol();
+        $options .= $this->getPadding(4);
+        $options .= "'options'=> Mage::getSingleton('adminhtml/system_store')->getWebsiteOptionHash(true),".$this->getEol();
         return $options;
     }
 

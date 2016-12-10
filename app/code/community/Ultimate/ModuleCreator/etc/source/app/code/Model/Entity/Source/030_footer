@@ -46,7 +46,7 @@
      * @return array
      * {{qwertyuiop}}
      */
-    public function getFlatColums()
+    public function getFlatColumns()
     {
         $attributeCode = $this->getAttribute()->getAttributeCode();
         $column = array(

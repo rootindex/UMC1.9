@@ -14,7 +14,7 @@ class {{Namespace}}_{{Module}}_Block_{{Entity}}_Rss extends Mage_Rss_Block_Abstr
      *
      * @var string
      */
-    const CACHE_TAG = 'block_html_{{module}}_{{entity}}_rss';
+    const CACHE_TAG = 'block_html_{{module_entity}}_rss';
 
     /**
      * constructor

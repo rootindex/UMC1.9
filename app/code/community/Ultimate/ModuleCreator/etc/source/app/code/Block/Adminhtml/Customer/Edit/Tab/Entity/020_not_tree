@@ -175,7 +175,7 @@ class {{Namespace}}_{{Module}}_Block_Adminhtml_Customer_Edit_Tab_{{Entity}} exte
      * get the current customer
      *
      * @access public
-     * @return Mage_Catalog_Model_Customer
+     * @return Mage_Customer_Model_Customer
      * {{qwertyuiop}}
      */
     public function getCustomer()

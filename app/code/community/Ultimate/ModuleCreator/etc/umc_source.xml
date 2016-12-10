@@ -1730,6 +1730,13 @@
                     </depend>
                     <sort_order>60</sort_order>
                 </stores>
+                <website>
+                    <name>065_website</name>
+                    <depend>
+                        <website/>
+                    </depend>
+                    <sort_order>65</sort_order>
+                </website>
                 <created_at>
                     <name>070_created_at</name>
                     <depend>

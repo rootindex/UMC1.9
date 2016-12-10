@@ -17,7 +17,7 @@ abstract class {{Namespace}}_{{Module}}_Helper_Image_Abstract extends Mage_Core_
     protected $_placeholder     = '';
 
     /**
-     * subdirectory to save imaves
+     * subdirectory to save images
      * override in child
      * @var string
      */
@@ -60,7 +60,7 @@ abstract class {{Namespace}}_{{Module}}_Helper_Image_Abstract extends Mage_Core_
     protected $_constrainOnly   = true;
 
     /**
-     * addaptive resize - crop
+     * adaptive resize - crop
      * https://github.com/wearefarm/magento-adaptive-resize/blob/master/README.md
      * @var bool
      */
@@ -91,7 +91,7 @@ abstract class {{Namespace}}_{{Module}}_Helper_Image_Abstract extends Mage_Core_
     protected $_resized         = false;
 
     /**
-     * addaptive resize positions
+     * adaptive resize positions
      * https://github.com/wearefarm/magento-adaptive-resize/blob/master/README.md
      * @var array
      */

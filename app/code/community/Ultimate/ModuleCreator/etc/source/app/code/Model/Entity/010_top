@@ -13,8 +13,8 @@ class {{Namespace}}_{{Module}}_Model_{{Entity}} extends {{EntityParentModel}}
      * Entity code.
      * Can be used as part of method name for entity processing
      */
-    const ENTITY    = '{{namespace}}_{{module}}_{{entity}}';
-    const CACHE_TAG = '{{namespace}}_{{module}}_{{entity}}';
+    const ENTITY    = '{{namespace}}_{{module_entity}}';
+    const CACHE_TAG = '{{namespace}}_{{module_entity}}';
 
     /**
      * Prefix of model events names

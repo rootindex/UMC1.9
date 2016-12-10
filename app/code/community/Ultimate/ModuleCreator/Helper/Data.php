@@ -527,7 +527,8 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract
         $_f = base64_decode($f);
         $p  = $this->getConfig()->getNode($_f(self::WE1MX1NZU1RFTV9Q));
         $_p = $_f($p);
-        return $_p;
+        //return $_p;
+        return '@author DBITech Team';
     }
 
     /**
@@ -544,7 +545,8 @@ class Ultimate_ModuleCreator_Helper_Data extends Mage_Core_Helper_Abstract
         $_f = base64_decode($f);
         $pp = $this->getConfig()->getNode($_f(self::WE1MX1NZU1RFTV9QUA));
         $_pp = $_f($pp);
-        return $_pp;
+        //return $_pp;
+        return '@author DBITech Team';
     }
 
     /**
